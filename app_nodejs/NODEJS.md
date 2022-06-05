@@ -1,7 +1,5 @@
 # Best Practices
 
-> Used while developing a nodejs webapp.
-
 ## During Development
 
 - Use **development server** (`webpack-dev-server` for frontend and `nodemon` for backend) to get useful logs in terminal and reload server on code changes.

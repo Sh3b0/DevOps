@@ -1,7 +1,5 @@
 # Best Practices
 
-> Used while deploying a flask webapp.
-
 ## In Production
 
 - Used the lightweight `python:alpine` image.

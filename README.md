@@ -31,7 +31,7 @@ General best practices learnt are listed here, language-specific tips are listed
   - Be sure to ignore private or environment-specific files, you can use a `.gitignore` template for the IDE and tech stack you use.
 - **Use the debugging/development server** provided by the framework, which provides extensive debugging messages and tools as well as other features such as reloading server on code changes.
 - **Follow recommended design patterns** for the coding language you use (when appropriate).
-- **Work in an isolated environment: **never install project dependencies globally in your OS filesystem unless you need them for all your projects.
+- **Work in an isolated environment:**never install project dependencies globally in your OS filesystem unless you need them for all your projects.
 - **Follow a well-known style guide and use linters and IDE extensions to enforce it** for the programming/scripting/documentation languages you use. The most important thing is to stay consistent and use the same styles everywhere.
 - **Use a well-known directory hierarchy and file/folder naming** for the frameworks used.
 - **Use automated tests** when it makes sense to use them.

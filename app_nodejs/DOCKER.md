@@ -1,7 +1,5 @@
 # Best Practices
 
-> Used while deploying a nodejs webapp.
-
 ## In Production
 
 - Used the lightweight `node-16:alpine` image.

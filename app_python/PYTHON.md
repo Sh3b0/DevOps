@@ -1,7 +1,5 @@
 # Best Practices
 
-> Used while developing a flask webapp.
-
 ## During Development
 
 - Use **Flask debugging server**, this will:
