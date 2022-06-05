@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Time app</title>
+</head>
+
+<body>
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32"></svg>
+            <span class="fs-4">Current time (MSK)</span>
+        </a>
+    </header>
+    <div class="d-flex justify-content-center" >
+        <h1 id='date'></h1>
+    </div>
+</div>
+
+</body>
+
+<script>
+    let dateText = document.getElementById('date');
+
+    function updateTime() {
+        let d = new Date();
+        let s = d.getSeconds(), m = d.getMinutes(), h = d.getHours();
+        dateText.textContent = 
+            ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2);
+    }
+
+    setInterval(updateTime, 1000);
+</script>
+
+</html>
