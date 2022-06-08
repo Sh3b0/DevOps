@@ -28,6 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
+      - uses: actions/checkout@v3
       - uses: docker/login-action@v2
         with:
             username: sh3b0
