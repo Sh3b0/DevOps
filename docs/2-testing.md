@@ -15,8 +15,6 @@
   - **Fixtures:** help initialize the state for the test functions to avoid duplicating initialization code for each test.
   - **Code coverage:** a popular metric for testing quality that measures the number of lines validated by tests.
 
-
-
 ## NodeJS App
 
 - Use an appropriate testing framework (e.g., Jest).

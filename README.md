@@ -26,6 +26,3 @@ In this repository, two web applications are created to practice:
 - [app_nodejs](./app_nodejs): fork of my old project [sh3b0/PongMe](https://github.com/sh3b0/PongMe).
 
 
-
-
-

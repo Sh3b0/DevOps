@@ -1,4 +1,4 @@
-# Building Stage
+# Building Phase
 
 > It’s about producing artifacts (e.g., executable, application image, package, zipped source code, etc.) and versioning them.
 
