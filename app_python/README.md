@@ -1,40 +1,43 @@
 # Time App
 
 - Sample app that shows current time for DevOps training.
-- Check [PYTHON.md](./PYTHON.md) and [DOCKER.md](./DOCKER.md) for best practices used in development and production respectively. 
 
 ## Used technology
 
 - HTML, CSS, JS.
 - Python (packages: Flask, Gunicorn).
 - Docker (images: alpine, nginx).
-- docker-compose
 
-## Development in Linux
+## Development
 
-`python` and `pip` are used, make sure you have them installed and available in `$PATH` then execute the following inside `app` directory.
+`python` and `pip` are used, make sure you have them installed and available in `$PATH` then execute the following:
 
 ```bash
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-python app.py
+python app.py # Or `flask run`
 ```
 
-## Production
+## Testing
 
 ```bash
-cd app
-docker build -t time_app .
-docker run -p8080:8080 time_app
+python -m pytest
 ```
 
-## Pushing to DockerHub
+## Building and Pushing Image
 
-```
-tagname=$(git log -1 --pretty=format:%h)
-docker tag time_app sh3b0/time_app:tagname
-docker tag time_app sh3b0/time_app:latest
-docker push sh3b0/time_app:tagname
+```bash
+# To build app image
+docker build -t <USERNAME>/app_python .
+
+# Testing the built image locally (http://localhost:8080)
+docker run -p8080:8080 app_python
+
+# Pushing a new version to dockerhub
+docker login -u <USERNAME> # Enter password/token when prompted
+tagname=$(git log -1 --pretty=format:%h) # Or use semantic versioning
+docker tag <USERNAME>/app_python <USERNAME>/app_python:$tagname
+docker push <USERNAME>/app_python --all-tags
 ```
 

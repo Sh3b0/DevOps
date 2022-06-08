@@ -2,15 +2,18 @@ name: CI/CD for Python app
 
 on:
   push:
-    tags:
-    - '*'
+    branches:
+      - main
+    paths:
+      - "app_python/"
+      
+defaults:
+  run:
+    working-directory: app_python
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: app_python
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
@@ -30,4 +33,4 @@ jobs:
       - uses: docker/build-push-action@v3
         with:
           push: true
-          tags: "sh3b0/app_flask:$(git log -1 --pretty=format:%h)"
+          tags: "sh3b0/app_python:$(git log -1 --pretty=format:%h)"

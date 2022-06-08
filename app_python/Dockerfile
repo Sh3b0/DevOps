@@ -1,5 +1,6 @@
 FROM python:alpine
-COPY . /app
+COPY app /app
+COPY requirements.txt /app
 WORKDIR /app
 ENV PYTHONUNBUFFERED=1
 RUN pip install --no-cache-dir -r requirements.txt

@@ -1,6 +1,18 @@
-# DevOps Best Practices Learned
+# Documentation
 
-## **During Development**
+> Work documentation and best practices followed during each phase.
+
+- [Development](./1-development.md)
+- [Testing](./2-testing.md)
+- [Building](3-building.md)
+- [CI/CD](./4-CICD.md)
+- .
+
+
+
+## General tips learned
+
+### **During Development**
 
 - **Use a Version Control System like `git`**: this helps to keep track of change history and roll back changes when needed. It also allows collaboration on remote repositories and many other benefits.
   - Be sure to ignore private or environment-specific files, you can use a `.gitignore` template for the IDE and tech stack you use.
@@ -10,9 +22,9 @@
 - **Follow a well-known style guide and use linters and IDE extensions to enforce it** for the programming/scripting/documentation languages you use. The most important thing is to stay consistent and use the same styles everywhere.
 - **Use a well-known directory hierarchy and file/folder naming** for the frameworks used.
 - **Use automated tests** when it makes sense to use them.
-- **You may use containerized environments during development** to avoid problems of type *“It works on my machine”* and to avoid installing large software like databases on your machine.
+- **You may use containerized environments during development** to make sure other developers can work with your application in the same environment and to avoid installing large software like databases on your machine.
 
-## For Production
+### For Production
 
 - **Use a containerized environment**
 - **Best practices when writing `Dockerfile`**:

@@ -1,4 +1,6 @@
-![app_python](https://github.com/sh3b0/devops/actions/workflows/app_python.yaml/badge.svg)
+![CI/CD (Python)](https://github.com/sh3b0/devops/actions/workflows/app_python.yaml/badge.svg)
+
+![CI/CD (NodeJS)](https://github.com/sh3b0/devops/actions/workflows/app_nodejs.yaml/badge.svg)
 
 # DevOps
 
@@ -22,27 +24,6 @@ In this repository, two web applications are created to practice:
 - [app_python](./app_python): sample flask webapp that shows current time.
 
 - [app_nodejs](./app_nodejs): fork of my old project [sh3b0/PongMe](https://github.com/sh3b0/PongMe).
-
-## Development
-
-- [docs/flask_dev.md](./docs/flask_dev.md) 
-
-- [docs/nodejs_dev.md](./docs/nodejs_dev.md)
-
-## Testing
-
-- [docs/flask_test.md](./docs/flask_test.md) 
-
-- [docs/nodejs_test.md](./docs/nodejs_test.md) // TODO
-
-## Production
-
-- [docs/flask_prod.md](./docs/flask_prod.md)
-- [docs/nodejs_prod.md](./docs/nodejs_prod.md)
-
-## CI/CD
-
-- [docs/CICD.md](./docs/CICD.md)
 
 
 
