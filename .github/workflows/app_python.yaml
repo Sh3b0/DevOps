@@ -33,9 +33,11 @@ jobs:
             username: sh3b0
             password: ${{ secrets.DOCKERHUB_TOKEN }}
       - uses: docker/setup-buildx-action@v2
+      - id: vars
+        run: echo "::set-output name=tagname::$(git rev-parse --short HEAD)"
       - uses: docker/build-push-action@v3
         with:
           push: true
-          tags: sh3b0/app_python:${{ GITHUB_SHA::6 }} , sh3b0/app_python:latest
+          tags: sh3b0/app_python:${{ steps.vars.outputs.tagname }} , sh3b0/app_python:latest
           cache-from: type=registry,ref=sh3b0/app_python:latest
           cache-to: type=inline
