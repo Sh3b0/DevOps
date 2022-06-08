@@ -35,4 +35,4 @@ jobs:
       - uses: docker/build-push-action@v3
         with:
           push: true
-          tags: "sh3b0/app_python:${GITHUB_SHA::6}"
+          tags: sh3b0/app_python:${{ GITHUB_SHA::6 }} , sh3b0/app_python:latest
