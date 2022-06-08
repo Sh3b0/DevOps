@@ -1,6 +1,4 @@
-# Best Practices
-
-## During Development
+# During development
 
 - Use **Flask debugging server**, this will:
   - Log all requests in terminal and reload server on code changes.

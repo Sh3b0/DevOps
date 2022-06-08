@@ -1,8 +1,14 @@
+![app_python](https://github.com/sh3b0/devops/actions/workflows/app_python.yaml/badge.svg)
+
 # DevOps
 
-DevOps training repository. Two web applications are used to practice:
+DevOps training repository. Check [docs](./docs) for detailed work documentation.
 
-- Web application development with Python and JavaScript.
+## Overview
+
+In this repository, two web applications are created to practice:
+
+- Web application development/testing with Python and JavaScript.
 - Application Containerization with Docker.
 - CI/CD with Jenkins and GitHub Actions.
 - Infrastructure as Code with Terraform.
@@ -13,44 +19,32 @@ DevOps training repository. Two web applications are used to practice:
 
 ## Applications
 
-- [app_python](./app_python): sample flask app that shows current time.
+- [app_python](./app_python): sample flask webapp that shows current time.
 
-- [app_nodejs](./app_nodejs): sample nodejs app for an online multiplayer pong game.
+- [app_nodejs](./app_nodejs): fork of my old project [sh3b0/PongMe](https://github.com/sh3b0/PongMe).
 
-## Best Practices
+## Development
 
-General best practices learnt are listed here, language-specific tips are listed the respective app directory.
+- [docs/flask_dev.md](./docs/flask_dev.md) 
 
-- For the flask webapp check [app_python/PYTHON.md](./app_python/PYTHON.md) and [app_python/DOCKER.md](./app_python/DOCKER.md)
+- [docs/nodejs_dev.md](./docs/nodejs_dev.md)
 
-- For the nodejs webapp check [app_nodejs/NODEJS.md](./app_nodejs/NODEJS.md) and [app_nodejs/DOCKER.md](./app_nodejs/DOCKER.md)
+## Testing
 
-### **During Development**
+- [docs/flask_test.md](./docs/flask_test.md) 
 
-- **Use a Version Control System like `git`**: this helps to keep track of change history and roll back changes when needed. It also allows collaboration on remote repositories and many other benefits.
-  - Be sure to ignore private or environment-specific files, you can use a `.gitignore` template for the IDE and tech stack you use.
-- **Use the debugging/development server** provided by the framework, which provides extensive debugging messages and tools as well as other features such as reloading server on code changes.
-- **Follow recommended design patterns** for the coding language you use (when appropriate).
-- **Work in an isolated environment:**never install project dependencies globally in your OS filesystem unless you need them for all your projects.
-- **Follow a well-known style guide and use linters and IDE extensions to enforce it** for the programming/scripting/documentation languages you use. The most important thing is to stay consistent and use the same styles everywhere.
-- **Use a well-known directory hierarchy and file/folder naming** for the frameworks used.
-- **Use automated tests** when it makes sense to use them.
-- **You may use a containerized environment** to avoid problems of type *“It works on my machine”* and to avoid installing large software like databases on your machine.
+- [docs/nodejs_test.md](./docs/nodejs_test.md) // TODO
 
-### For Production
+## Production
 
-- **Use a containerized environment**
-- **Best practices when writing `Dockerfile`**:
-  - **Use a Dockerfile linter** (e.g., `hadolint`) as it helps build best practice Docker images.
-  - **Use a small base image** that does the job (e.g., alpine-based images) as it will make deployment faster while not taking much space.
-  - Copy only the necessary files to the image to make it smaller and faster, use `.dockerignore` to ignore unnecessary files and directories.
-  - Use `EXPOSE` documentation to make port-forwarding easier for other programmers reading your `Dockerfile`.
-- **Use a production webserver** like `nginx`
-  - For serving static pages, handling SSL, load balancing, DoS protection, enforcing access rules, and many other required functionalities.
-  - Cloud solutions help you focus on application development rather than going through all of these issues from the start, however, it’s still beneficial to learn about webserver configuration.
-- Depending on application size and needs, you **may use a container orchestrator.**
-  - For small-sized deployments, it’s more than enough to use `docker-compose` to deploy everything with one command.
-  - For larger deployments, k8s is used.
-- For version control of app images and convenient deployment to the cloud, you may **push image to a container registry** like DockerHub or the cloud-dedicated container registry.
-  - To easily understand which version of the code is currently in the registry, you can tag the image with it’s corresponding the commit id from git.
-  - You can see the latest id with `git log -1 --pretty=format:%h`
+- [docs/flask_prod.md](./docs/flask_prod.md)
+- [docs/nodejs_prod.md](./docs/nodejs_prod.md)
+
+## CI/CD
+
+- [docs/CICD.md](./docs/CICD.md)
+
+
+
+
+
