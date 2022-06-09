@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "app_python/**"
+      - ".github/workflows/app_python.yaml"
       
 defaults:
   run:
@@ -38,6 +39,8 @@ jobs:
       - uses: docker/setup-buildx-action@v2
       - uses: docker/build-push-action@v3
         with:
+          context: app_python/
+          file: app_python/Dockerfile
           push: true
           tags: sh3b0/app_python:${{ steps.vars.outputs.tagname }} , sh3b0/app_python:latest
           cache-from: type=registry,ref=sh3b0/app_python:latest
