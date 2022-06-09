@@ -34,4 +34,3 @@
   - For larger deployments, k8s is used.
 - For version control of app images and convenient deployment to the cloud, you may **push image to a container registry** like DockerHub or the cloud-dedicated container registry.
   - To easily understand which version of the code is currently in the registry, you can tag the image with it’s corresponding the commit id from git.
-  - You can see the latest id with `git log -1 --pretty=format:%h`

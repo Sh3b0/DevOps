@@ -9,7 +9,12 @@
 - Add workflows in [`/.github/workflows/`](/.github/workflows/) and make sure they run only when there are relevant updates. 
 - Keep actions minimal and don’t install unnecessary dependencies.
 - Use GitHub secrets when working with credentials or tokens.
+- Use [GitHub actions’ default environment variables](https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables) when working with runner file system.
 - With DockerHub, it’s more secure to use a generated-token with only the necessary permissions instead of using the password.
+- Optimize workflow running time by [caching dependencies](https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows).
+  - Cache `pip` or `npm` downloaded packages.
+  - [Cache docker image layers.](https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md)
+
 
 ## Jenkins
 
