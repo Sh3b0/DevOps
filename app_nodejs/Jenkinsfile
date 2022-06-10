@@ -18,12 +18,14 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh '''
-                cd app_nodejs
-                docker build -t sh3b0/app_nodejs .
-                docker tag sh3b0/app_nodejs:$(git rev-parse --short HEAD)
-                docker push sh3b0/app_nodejs --all-tags
-                '''
+                docker('docker') {
+                    sh '''
+                    cd app_nodejs
+                    docker build -t sh3b0/app_nodejs .
+                    docker tag sh3b0/app_nodejs:$(git rev-parse --short HEAD)
+                    docker push sh3b0/app_nodejs --all-tags
+                    '''
+                }
             }
         }
     }
