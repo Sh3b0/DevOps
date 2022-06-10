@@ -4,8 +4,9 @@ pipeline {
     stage('Test') {
       agent any
       steps {
-        sh '''pip install -r requirements.txt
-python -m pytest
+        sh '''apt install python3 python3-pip
+pip3 install -r requirements.txt
+python3 -m pytest
 '''
       }
     }
