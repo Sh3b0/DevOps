@@ -11,9 +11,8 @@ pipeline {
                     sh '''
                     cd app_nodejs
                     npm ci
-                    npm run start
+                    npm run ci
                     '''
-                    sh 'npm run test'
                 }
             }
         }

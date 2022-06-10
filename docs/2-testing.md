@@ -5,8 +5,8 @@
 - Use an appropriate testing framework (e.g., `pytest`).
 - Use a recommended directory hierarchy for organizing tests. For example:
   - A separate directory `tests` with subdirectories for `unit` or `functional` tests, etc.
-  - Add an `__init__` script to the directory (even if empty) to avoid unintended code execution when importing the test module.
-  - A manager script in `tests` to conveniently run test suites.
+  - Add an `__init__` script to the directory (even if empty) to mark it as a module and to avoid unintended code execution when importing the test module.
+  - You can use manager script in `tests` to conveniently run test suites.
 - Document tests using the common GIVEN-WHEN-THEN scheme.
 
 ### Notes:

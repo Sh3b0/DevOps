@@ -8,7 +8,9 @@
     "dev:frontend": "webpack serve --mode development",
     "start": "npx tsc --project tsconfig.build.json && webpack --mode production && node dist/index.js",
     "lint": "eslint src --ext .ts",
-    "test": "jest"
+    "start-server": "npm start",
+    "test": "jest",
+    "ci": "start-server-and-test start-server http://localhost:3000 test"
   },
   "author": "Ahmed Nouralla",
   "license": "MIT",
@@ -31,6 +33,7 @@
     "eslint": "^8.15.0",
     "jest": "^28.1.1",
     "nodemon": "^2.0.16",
+    "start-server-and-test": "^1.14.0",
     "ts-jest": "^28.0.4",
     "webpack-dev-server": "^4.9.0"
   }
