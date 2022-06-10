@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    environment {
+        dockerhub=credentials('dockerhub')
+    }
+    stages {
+        stage('Test') {
+            steps {
+                nodejs('node-16.14.0') {
+                    sh '''
+                    cd app_nodejs
+                    npm ci
+                    npm run start
+                    npm run test
+                    '''
+                }
+            }
+        }
+        stage('Build') {
+            steps {
+                sh '''
+                cd app_nodejs
+                docker build -t sh3b0/app_nodejs .
+                docker tag sh3b0/app_nodejs:$(git rev-parse --short HEAD)
+                docker push sh3b0/app_nodejs --all-tags
+                '''
+            }
+        }
+    }
+}

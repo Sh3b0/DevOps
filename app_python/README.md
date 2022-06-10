@@ -35,8 +35,7 @@ docker build -t <USERNAME>/app_python .
 docker run -p8080:8080 app_python
 
 # Tag image with last commit SHA (or use semantic versioning)
-tagname=$(git rev-parse --short HEAD)
-docker tag <USERNAME>/app_python <USERNAME>/app_python:$tagname
+docker tag <USERNAME>/app_python <USERNAME>/app_python:$(git rev-parse --short HEAD)
 
 # Login and push image to dockerhub
 docker login -u <USERNAME> # Enter password/token when prompted
