@@ -17,7 +17,6 @@ Online multiplayer pong game using socket.io.
 
 - **Docker**
 
-  
 
 ## Running the application locally
 

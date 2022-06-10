@@ -10,7 +10,7 @@
 
 
 
-## General tips learned
+## General Practices Learned
 
 - **Use a Version Control System like `git`**: this helps to keep track of change history and roll back changes when needed. It also allows collaboration on remote repositories and many other benefits.
   - Be sure to ignore private or environment-specific files, you can use a `.gitignore` template for the IDE and tech stack you use.
