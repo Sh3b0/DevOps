@@ -1,16 +1,11 @@
 pipeline {
-    agent {
-      docker {
-        image 'python:3'
-      }
-    }
+    agent any
     stages {
-        stage('Test') {
+        stage('Build') {
             steps {
-              sh """
-              python --version
-              pip --version
-              """
+                nodejs('node-16.14.0') {
+                    sh 'npm ci'
+                }
             }
         }
     }

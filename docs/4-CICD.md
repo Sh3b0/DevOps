@@ -1,8 +1,10 @@
-# CI/CD
+# Continuous Integration
 
-> It’s about setting up an automated process for incorporating new code into existing infrastructure (CI) and automatically deploying/delivering it to the end-users (CD)
+> It’s about setting up an automated process for incorporating new code into existing infrastructure
 
-## GitHub Actions (CI)
+## GitHub Actions
+
+Setting up CI with Github Actions for the Python app.
 
 ### Overview
 
@@ -22,11 +24,12 @@
 - Use [GitHub actions’ default environment variables](https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables) when working with the **runner** file system.
 - With DockerHub, it’s more secure to use a generated-token with only the necessary permissions instead of using the password.
 - Optimize workflow running time by [caching dependencies](https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows).
-  - Cache `pip` or `npm` downloaded packages.
+  - Cache `pip` downloaded packages.
   - [Cache docker image layers.](https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md)
 
+## Jenkins
 
-## Jenkins (CD)
+Setting up CI with Jenkins for the NodeJS app.
 
 ### Overview
 
@@ -36,19 +39,17 @@
 
 ### Practice
 
-- Jenkins server is typically deployed along with the organization servers. For local experimenting in this repo, a docker image is used.
-
-- When Jenkins server is deployed, a web UI is accessible for configuration and checking build status.
+- Jenkins server can be deployed as a container that exposes a web UI for configuration and checking build status.
 
 - [BlueOcean](https://www.jenkins.io/projects/blueocean/) is a plugin built on top of Jenkins that provides a better UI/UX for Jenkins and can automatically create `Jenkinsfile` 
 
-  - Running BlueOcean as a docker container
+  - Running BlueOcean as a docker container with port forwarding and a volume for persisting data.
 
     ```bash
     docker run --name jenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkinsci/blueocean:1.25.5
     ```
 
-  - Access the UI at http://localhost:8080, use default credentials `admin` and the password from the previous command output, you can also create a different user account or add plugins.
+  - Access the UI at http://localhost:8080, use default credentials `admin` and the password from the previous command output, you can also create a different user account or add plug-ins.
   - Configure credentials for GitHub both in BlueOcean and Jenkins.
 
-
+- 
