@@ -4,6 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 nodejs('node-16.14.0') {
+                    sh 'cd app_nodejs/app'
                     sh 'npm ci'
                 }
             }
