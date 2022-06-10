@@ -4,7 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 nodejs('node-16.14.0') {
-                    sh 'pwd'
+                    sh 'ls'
                     sh 'npm ci'
                 }
             }
