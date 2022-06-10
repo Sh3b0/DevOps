@@ -8,7 +8,7 @@ describe('Game', () => {
   const roomName = Math.random().toString();
 
   beforeAll((done) => {
-    const uri = 'http://localhost:8080';
+    const uri = `http://localhost:${process.env.PORT || 8080}`;
     p1 = io(uri);
     p2 = io(uri);
     p1.on('connect', () => {

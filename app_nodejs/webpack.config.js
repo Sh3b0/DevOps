@@ -28,7 +28,7 @@ module.exports = (env, argv) => {
         directory: path.resolve(__dirname, 'public'),
       },
       compress: true,
-      port: 8080,
+      port: process.env.PORT || 8080,
     }
   }
   return config;

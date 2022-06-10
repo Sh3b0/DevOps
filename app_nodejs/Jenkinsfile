@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         dockerhub=credentials('dockerhub')
+        PORT=3000
     }
     stages {
         stage('Test') {
