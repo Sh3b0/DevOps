@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        dockerhub=credentials('dockerhub')
+        DOCKERHUB_CREDS=credentials('dockerhub')
         PORT=3000
     }
     stages {
@@ -18,15 +18,18 @@ pipeline {
         }
         stage('Build') {
             steps {
-                docker('docker') {
-                    sh '''
-                    cd app_nodejs
-                    docker build -t sh3b0/app_nodejs .
-                    docker tag sh3b0/app_nodejs:$(git rev-parse --short HEAD)
-                    docker push sh3b0/app_nodejs --all-tags
-                    '''
-                }
+                sh '''
+                cd app_nodejs
+                docker build -t sh3b0/app_nodejs .
+                '''
             }
+        }
+        stage('Release') {
+            sh'''
+            docker tag sh3b0/app_nodejs:$(git rev-parse --short HEAD)
+            echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin
+            docker push sh3b0/app_nodejs --all-tags
+            '''
         }
     }
 }
