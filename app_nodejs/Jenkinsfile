@@ -3,8 +3,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'apk add nodejs'
-                sh 'npm i'
+                nodejs('node-16.14.0') {
+                    sh 'npm ci'
+                }
             }
         }
     }

@@ -1,6 +1,6 @@
 # Continuous Integration
 
-> It’s about setting up an automated process for incorporating new code into existing infrastructure
+> It’s about setting up an automated process for incorporating new code into existing infrastructure.
 
 ## GitHub Actions
 
@@ -40,16 +40,11 @@ Setting up CI with Jenkins for the NodeJS app.
 ### Practice
 
 - Jenkins server can be deployed as a container that exposes a web UI for configuration and checking build status.
+- When running Jenkins as a docker container, note the base OS and the user under which the container is running since:
+  - Using `sh` in `Jenkinsfile` runs commands under that user and that base OS.
+  - Alpine image can introduce issues with some plug-ins.
 
-- [BlueOcean](https://www.jenkins.io/projects/blueocean/) is a plugin built on top of Jenkins that provides a better UI/UX for Jenkins and can automatically create `Jenkinsfile` 
-
-  - Running BlueOcean as a docker container with port forwarding and a volume for persisting data.
-
-    ```bash
-    docker run --name jenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkinsci/blueocean:1.25.5
-    ```
-
-  - Access the UI at http://localhost:8080, use default credentials `admin` and the password from the previous command output, you can also create a different user account or add plug-ins.
-  - Configure credentials for GitHub both in BlueOcean and Jenkins.
-
-- 
+- **In production environments:**
+  - Create users and configure access controls for them, not everyone should have access to the admin credentials.
+  - Set up distributed builds as building on the built-in node can be a security issue.
+- Use official credentials plugin to work with credentials for Jenkins and 3rd party integrations.
