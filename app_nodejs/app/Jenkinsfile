@@ -4,8 +4,10 @@ pipeline {
         stage('Build') {
             steps {
                 nodejs('node-16.14.0') {
-                    sh 'ls'
-                    sh 'npm ci'
+                    sh '''
+                    cd app_nodejs/app
+                    npm ci
+                    '''
                 }
             }
         }
