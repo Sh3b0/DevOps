@@ -1,5 +1,9 @@
 # Development Phase
 
+## Goal
+
+- Create two sample applications using different technologies to apply DevOps practices on them.
+
 ## Python App
 
 - Use **Flask debugging server**, this will:
