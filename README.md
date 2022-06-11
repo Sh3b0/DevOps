@@ -1,4 +1,4 @@
-![CI/CD (Python)](https://github.com/sh3b0/devops/actions/workflows/app_python.yaml/badge.svg) ![CI/CD (NodeJS)](https://github.com/sh3b0/devops/actions/workflows/app_nodejs.yaml/badge.svg)
+![CI (Python)](https://github.com/sh3b0/devops/actions/workflows/app_python.yaml/badge.svg)
 
 # DevOps
 
