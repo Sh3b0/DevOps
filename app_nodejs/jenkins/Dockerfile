@@ -2,8 +2,7 @@ FROM jenkins/jenkins:lts-jdk11
 
 USER root
 RUN apt-get update \
-      && apt-get install --no-install-recommends -y sudo procps\
-      && rm -rf /var/lib/apt/lists/*
-RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
- 
+    && apt-get install --no-install-recommends -y procps=2:3.3.17-7+b1 \
+    && rm -rf /var/lib/apt/lists/*
+
 USER jenkins

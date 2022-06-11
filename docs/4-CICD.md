@@ -56,7 +56,8 @@
   - Pay attention to the base OS and the user under which the container is running since:
     - Using `sh` in `Jenkinsfile` runs commands under that user and that base OS.
     - Alpine images can introduce issues with some plug-ins.
-  
+  - Running docker commands (e.g., `docker push`) from Jenkinsfile can be problematic when jenkins itself is running as a docker container, there are multiple [solutions](https://blog.container-solutions.com/running-docker-in-jenkins-in-docker) for this.
+
 - **Use an IDE plugin for help with syntax highlighting and linting of `Jenkinsfile`.**
 
   - There doesn’t seem to be an official one for VSCode at the time of writing this.
