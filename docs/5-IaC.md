@@ -9,14 +9,11 @@ The core terraform workflow consists of 3 stages:
 - **Write:** represent infrastructure as [HCL declarative code](https://www.terraform.io/language). The syntax is built around two constructs: **arguments** and **blocks** (i.e., line-separated arguments and blocks).
   - HCL supports common programming concepts such as **variables**, **types** (string, numeric), **functions** (built-in), and **expressions**.
   - An existing and supported infrastructure can be **import**ed into terraform to start managing it from code.
+- **Plan:** terraform creates an execution plan describing actions (e.g., create, modify, or destroy resources) that will be taken based on existing infrastructure **state** (stored in the **backend**) and current **workspace** configuration.
+- **Apply:** interact with the service/platform-specific API through their **providers** (published on [**registry**](https://registry.terraform.io/)) to execute the plan.
+  - **Named values** are used for working with API keys or other configurations to allow re-usability and avoid hard-coding.
+  - **Modules** are used to group resources that are used together as a reusable package. 
 
-
-  - **Plan:** terraform creates an execution plan describing actions (e.g., create, modify, or destroy resources) that will be taken based on existing infrastructure **state** (stored in the **backend**) and current **workspace** configuration.
-
-
-  - **Apply:** interact with the service/platform-specific API through their **providers** (published on [**registry**](https://registry.terraform.io/)) to execute the plan.
-    - **Named values** are used for working with API keys or other configurations to allow re-usability and avoid hard-coding.
-    - **Modules** are used to group resources that are used together as a reusable package. 
 
 ### Vagrant
 
