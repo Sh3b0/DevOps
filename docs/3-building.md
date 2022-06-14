@@ -1,18 +1,14 @@
 # Building Phase
 
 ## Goal
-
 - Produce artifacts (e.g., executable, application image, software package, zipped source code, etc.) and version them.
-
 - In this context, artifact is the **docker image** of the web application created from the corresponding `Dockerfile` for both apps.
 
 ## Steps
-
 - Write a `Dockerfile`  in the root directory for each project.
 - Add build and release instructions to the README.
 
 ## Best Practices
-
 ### General
 
 - **Use a Dockerfile linter** (e.g., [hadolint](https://github.com/hadolint/hadolint)) as it helps build best practice Docker images.
