@@ -1,5 +1,5 @@
 FROM python:alpine
-COPY app /app
+COPY . /app
 COPY requirements.txt /app
 WORKDIR /app
 ENV PYTHONUNBUFFERED=1
