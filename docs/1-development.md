@@ -1,31 +1,23 @@
 # Development Phase
 
 ## Goal
-
 - Create two sample applications using different technologies to apply DevOps practices on them.
 
 ## Steps
-
 #### **Python App**
-
 - Create `app_python` directory and initialize a virtual environment with `python -m venv venv`
-
 - Install required project dependencies with `pip install` then freeze the environment with `pip freeze > requirements.txt`
 - Implement application logic.
-
 - Create a README with description and instructions for local development.
 
 #### **NodeJS App**
-
 - Create `app_nodejs` directory and initialize the project with `npm init`  
 - Install project dependencies and dev dependencies with `npm install`.
 - Implement application logic.
 - Create a README with description and instructions for local development.
 
 ## Best practices
-
 #### **Python App**
-
 - Use **Flask debugging server**, this will:
   - Log all requests in terminal and reload server on code changes.
   - Allow accessing debug info from the app when errors occur.
@@ -36,11 +28,9 @@
   - For example: configure `autopep8` to run on save in the IDE.
 - **Follow recommended directory structure and directory/file naming. Example:**
   - Use `templates` directory for HTML templates and `static` directory for static files with subdirectories for `css`, `js`, `images`, and any other needed static files.
-
 - To connect Python webapps to the webserver, we need a **Web Server Gateway Interface (WSGI)** like `gunicorn`.
 
 #### NodeJS App
-
 - **Use development server** (e.g., `webpack-dev-server` for frontend and node with `nodemon` for backend) to get useful logs in terminal and reload server on code changes.
 - **Use devDependencies** for dependencies that are not required in production (they won’t get installed when NODE_ENV is set to production).
 - **Use TypeScript** to write more reliable and type-safe code.
