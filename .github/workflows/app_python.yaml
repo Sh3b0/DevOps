@@ -1,4 +1,4 @@
-name: CI/CD (Python)
+name: CI (Python)
 
 on:
   push:
