@@ -24,7 +24,6 @@ The core terraform workflow consists of 3 stages:
 ## Goal
 
 Getting familiar with terraform by:
-
 - Using Vagrant provider to provision a test infrastructure (3 VMs).
 - Using GitHub provider to manage a GitHub repository from code.
 
@@ -36,22 +35,18 @@ Getting familiar with terraform by:
 ### **In `vagrant` directory**
 
 - Write `Vagrantfile` that uses [hashicorp/bionic64](hashicorp/bionic64) box for creating 3 VMs.
-
   ```bash
   vagrant up       # Start and provision environment
   vagrant halt     # Stop the VMs
   vagrant destroy  # Destroy the environment.
   ```
-
 - On success, 3 VMs should be visible in VirtualBox GUI.
-
-  ![vagrant](images/vagrant.png)
-
   - **Default credentials:** vagrant:vagrant
   - Information about forwarded ports and how to SSH into the machines are found in the output of `vagrant up` and can be customized from code.
 
+  ![vagrant](images/vagrant.png)
+  
 - Write `main.tf` that uses vagrant provider to achieve the same result
-
   ```bash
   terraform init      # Prepare workspace
   terraform validate  # Check configuration for validity
@@ -64,17 +59,13 @@ Getting familiar with terraform by:
 ### **In `github` directory**
 
 - Write `main.tf` that uses `integrations/github` provider.
-
 - Configure `github` provider with `token` declared in `variables.tf` and assign the value from command line or `.tfvars` file. 
-
-- Declare resource of types `github_repository`, `github_branch`, `github_branch_default`, and `github_branch_protection_v3`  with the desired configurations.
-
+- Declare resources of types `github_repository`, `github_branch`, `github_branch_default`, and `github_branch_protection_v3`  with the desired configurations.
 - Import the remote repo to use the existing configuration
-
+  
   ```bash
   terraform import github_repository.<resource_name> <repo_name>
   ```
-
 - Use the same terraform commands as above to manage the repository configuration from terraform.
 
 #### Screenshots
@@ -98,13 +89,9 @@ Getting familiar with terraform by:
 ## Best Practices
 
 - Use an IDE plugin to help with syntax highlighting and autocompletion ([official VSCode plugin](https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform)).
-
 - Use built-in formatter and validator, check plan before applying changes.
-
 - Sensitive information (state and secret variables) shouldn’t be pushed to the VCS; they can be stored locally and ignored by the VCS, or stored remotely and encrypted at rest ([.gitignore for terraform](https://github.com/github/gitignore/blob/main/Terraform.gitignore)).
-
 - Recommended directory structure and file naming for a minimal module:
-
   ```
   .
   ├── README.md     # module description
@@ -112,6 +99,4 @@ Getting familiar with terraform by:
   ├── variables.tf  # input variables and locals
   ├── outputs.tf    # output variables
   ```
-
-
 - When using providers (for vagrant or terraform), be sure to pin their versions to ensure reproducibility.
