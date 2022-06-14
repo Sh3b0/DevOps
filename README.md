@@ -13,7 +13,7 @@ In this repository, two web applications are created to practice:
 - [x] CI/CD with Jenkins and GitHub Actions.
 - [ ] Infrastructure as Code with Terraform.
 - [ ] Configuration Management with Ansible.
-- [ ] Container Orchestration with K8s on AWS.
+- [ ] Container Orchestration with K8s.
 - [ ] Monitoring with Prometheus.
 - [ ] Visualization and analytics with Grafana.
 
