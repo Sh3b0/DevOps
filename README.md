@@ -11,7 +11,7 @@ In this repository, two web applications are created to practice:
 - [x] Web application development/testing with Python and JavaScript.
 - [x] Application Containerization with Docker.
 - [x] CI/CD with Jenkins and GitHub Actions.
-- [ ] Infrastructure as Code with Terraform.
+- [x] Infrastructure as Code with Terraform.
 - [ ] Configuration Management with Ansible.
 - [ ] Container Orchestration with K8s.
 - [ ] Monitoring with Prometheus.

@@ -9,7 +9,7 @@ terraform {
 
 provider "github" {
   # Specify a value in terraform.tfvars, *.auto.tfvars, with -var 'foo=bar', or -var-file=filename
-  token = var.org_token
+  token = var.github_token
   owner = "test-organization7"
 }
 
