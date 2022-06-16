@@ -1,6 +1,7 @@
 # Reference: https://github.com/xcad2k/boilerplates/blob/main/ansible/provisoning/ubuntu/install-docker.yaml
 ---
-- hosts: app
+- name: "Install docker and docker Python SDK on all app nodes"
+  hosts: app
   
   become: yes
   tasks:

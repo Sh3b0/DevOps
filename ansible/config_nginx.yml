@@ -1,5 +1,6 @@
 ---
-- hosts: loadbalancer
+- name: "Install and configure nginx on loadbalancer node"
+  hosts: loadbalancer
   become: yes
   
   tasks:
