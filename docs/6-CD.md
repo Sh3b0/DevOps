@@ -22,10 +22,10 @@
 
 ### 1.1. Ansible
 
-- A **playbook** (written in YAML) defines one or more **tasks/plays** (each expressed as list of **modules**) that will be executed on one or more remote machines (selected from **inventory**) through an SSH connection (no agent required).
-- A **play** has a **name** (optional), target **hosts** (selected by **patterns**), and a **remote_user** (e.g., root).
+- A **playbook** (written in YAML) defines one or more **plays** that will be executed on one or more remote machines (selected from **inventory**) through an SSH connection (no agent required).
+- A **play** has a **name** (optional), **vars** (optional), target **hosts** (selected by **patterns**), a **remote_user** (e.g., root), one or more **tasks** to execute, and (optionally) one or more **handlers** to be **notified** to run when the play changes machine **state**.
+- A task executes a [named] **module** (**[built-in](https://docs.ansible.com/ansible/2.9/modules/modules_by_category.html)** or [**3rd-party**](https://galaxy.ansible.com/)) against remote machines (default execution **strategy** is sequential).
 - An **inventory** (YAML/INI file) contains [named groups of] IP addresses or hostnames of remote machines, it can also store **variables**.
-- **Modules** (**[built-in](https://docs.ansible.com/ansible/2.9/modules/modules_by_category.html)** or [**3rd-party**](https://galaxy.ansible.com/)) are small units of code that Ansible executes against remote machines (default **strategy** is sequential).
 - Ansible collects **return codes** from executed tasks, **facts** about remote machines and **magic variables** storing internal state.
 - **Role:** the standard way to group related Ansible artifacts (vars, files, tasks, etc.) to share them so they can be loaded and reused.
 
@@ -64,9 +64,9 @@
 
 ### 3.2. Installing docker on VMs 
 
-- Create a playbook that installs docker (`ansible/install_docker.yml`)
+- Create a playbook that installs docker (`install_docker.yml`)
 
-- Execute the playbook: `ansible-playbook ansible/install_docker.yml`
+- Execute the playbook: `ansible-playbook install_docker.yml`
 
   ![ansible-2](images/ansible-2.png)
 
@@ -107,22 +107,5 @@
 - Use dynamic inventory when working with cloud hosts to avoid manual IP/hostname configurations.
 
 - Use `state` to specify the desired module state so that modules won’t execute twice unless needed.
-
-- Recommended directory structure:
-
-  ```
-  playbooks
-  ├── playbook_name.yml
-  └── roles
-      └── role_name
-          ├── defaults
-          ├── files
-          ├── handlers
-          ├── library
-          ├── mets
-          ├── tasks
-          ├── templates
-          └── vars
-  ```
 
   

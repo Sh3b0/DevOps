@@ -1,0 +1,26 @@
+---
+- name: install and configure nginx on loadbalancer node
+  hosts: loadbalancer
+  become: true
+
+  tasks:
+  - name: install nginx
+    apt:
+      name:
+        - nginx
+      update_cache: true
+
+  - name: copy nginx config to guest
+    ansible.builtin.copy:
+      src: ../nginx.conf
+      dest: /etc/nginx/nginx.conf
+      mode: '0644'
+
+    notify:
+      - Restart nginx
+
+  handlers:
+    - name: Restart nginx
+      ansible.builtin.systemd:
+        state: restarted
+        name: nginx
