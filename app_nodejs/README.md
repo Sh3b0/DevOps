@@ -20,7 +20,7 @@ Online multiplayer pong game using socket.io.
 
 ## Running the application locally
 
-- Development (v16.14.0 was used)
+- With npm (v16.14.0 was used)
   ```bash
   nvm install
   nvm use
@@ -33,7 +33,7 @@ Online multiplayer pong game using socket.io.
   npm run dev:backend
   ```
 
-- Production
+- With docker
   ```bash
   docker build -t pongme .
   docker run -p8080:8080 pongme
