@@ -20,7 +20,7 @@ Online multiplayer pong game using socket.io.
 
 ## Running the application locally
 
-- With npm (v16.14.0 was used)
+- With npm (node v16.14.0 is used)
   ```bash
   nvm install
   nvm use
