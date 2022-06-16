@@ -27,7 +27,7 @@ pipeline {
         stage('Release') {
             steps {
                 sh '''
-                docker tag sh3b0/app_nodejs:$(git rev-parse --short HEAD)
+                docker tag sh3b0/app_nodejs sh3b0/app_nodejs:$(git rev-parse --short HEAD)
                 echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin
                 docker push sh3b0/app_nodejs --all-tags
                 '''

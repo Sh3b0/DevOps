@@ -1,8 +1,6 @@
 FROM jenkins/jenkins:lts-jdk11
 
-USER root
+COPY docker /usr/bin/docker
 RUN apt-get update \
-    && apt-get install --no-install-recommends -y procps=2:3.3.17-7+b1 \
+    && apt-get install --no-install-recommends -y procps \
     && rm -rf /var/lib/apt/lists/*
-
-USER jenkins
