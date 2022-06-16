@@ -25,7 +25,7 @@ python app.py # Or `flask run`
 python -m pytest
 ```
 
-## Building and Pushing Image
+## Release
 
 ```bash
 # To build app image
