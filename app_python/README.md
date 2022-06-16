@@ -29,16 +29,16 @@ python -m pytest
 
 ```bash
 # To build app image
-docker build -t <USERNAME>/app_python .
+docker build -t <DOCKERHUB_ID>/app_python .
 
 # Testing the built image locally (http://localhost:8080)
-docker run -p8080:8080 app_python
+docker run -p8080:8080 <DOCKERHUB_ID>/app_python
 
 # Tag image with last commit SHA (or use semantic versioning)
-docker tag <USERNAME>/app_python <USERNAME>/app_python:$(git rev-parse --short HEAD)
+docker tag <DOCKERHUB_ID>/app_python <DOCKERHUB_ID>/app_python:$(git rev-parse --short HEAD)
 
 # Login and push image to dockerhub
-docker login -u <USERNAME> # Enter password/token when prompted
-docker push <USERNAME>/app_python --all-tags
+docker login -u <DOCKERHUB_ID> # Enter password/token when prompted
+docker push <DOCKERHUB_ID>/app_python --all-tags
 ```
 
