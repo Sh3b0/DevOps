@@ -41,6 +41,7 @@
 ## 2. Goal
 
 - **Set up Continuous Integration** to automatically **test**, **build**, and **release**  both applications as new code gets pushed to the main branch.
+- Use **GitHub Actions with the Python App** and **Jenkins with the NodeJS App**.
 
 ## 3. Steps
 
@@ -56,13 +57,13 @@
 
 - Navigate to `jenkins` directory and run `docker-compose up` to run the Jenkins server.
 - Use the password from the command line to access the UI at http://localhost:8080
-- Set up and configure the necessary plugins for credentials, git, nodejs, and docker.
+- Set up and configure the necessary plugins for credentials, pipeline stage view, git, and nodejs.
 - Create a multibranch pipeline.
 - Write `Jenkinsfile` to install dependencies, run server, run tests, then login and push image to DockerHub.
 - Configure Jenkins to find `Jenkinsfile` by path and run workflow on pushes to the `main` branch with included region set to `app_nodejs` directory.
 - To trigger builds automatically, a webhook should be used.
   - For local Jenkins deployment this is not possible and we have to manually tell Jenkins to `Build now`
-  - Or configure SCM polling (not recommended).
+  - Alternatively, configure SCM polling.
 
 ## 4. Best Practices
 
@@ -82,7 +83,7 @@
   - Use the official and maintained image for Jenkins.
     - [Official Image](https://hub.docker.com/r/jenkins/jenkins) at the time of writing this.
     - Alpine-based images introduce issues with the NodeJS plugin at the time of writing this.
-  - Use docker files for Jenkins deployment instead of running a long, undocumented command in the terminal.
+  - Use `Dockerfile` and `docker-compose.yaml` for Jenkins deployment instead of running a long, undocumented command in the terminal.
   - Pay attention to the base OS and the user under which the container is running since:
     - Using `sh` in `Jenkinsfile` runs commands under that user and that base OS.
     - Running docker commands (e.g., `docker push`) from Jenkinsfile can be problematic when Jenkins itself is running as a docker container [[solution](http://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/)].
