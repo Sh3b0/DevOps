@@ -39,7 +39,7 @@ The core terraform workflow consists of 3 stages:
 
 ### 1.2. Vagrant
 
-- `Vagrantfile` is used to describe a **virtual environment** (of **VMs/containers** with networking) as **declarative ruby code** that can be used to set **up** the environment, test scripts or configuration management tools (e.g., Chef, Ansible, or Puppet), then **halt** and **destroy** the environment or recreate it on the cloud.
+- `Vagrantfile` is used to describe an **environment** (of **VMs/containers** with networking) as **declarative ruby code** that can be used to set **up** the environment, test scripts or configuration management tools (e.g., Chef, Ansible, or Puppet), then **halt** and **destroy** the environment or recreate it on the cloud.
 - A **box** (pulled from the **[cloud](https://vagrantcloud.com/boxes/search)**) is typically used as the starting point for running ready-to-use environments or as a template for creating custom ones.
 - **Providers** allow writing `Vagrantfile`s for different types of virtualization systems. Support for **Virtualbox**, **Hyper-V**, and **Docker** works out-of-the-box. Other providers should be installed as **plugins**.
 
@@ -47,7 +47,7 @@ The core terraform workflow consists of 3 stages:
 
 Getting familiar with terraform by:
 
-- Using Vagrant provider to provision a test infrastructure (3 VMs serving the application with an NGINX load-balancer).
+- Using Vagrant provider to provision a test infrastructure (3 VMs serving the application with an NGINX load-balancer in front of them).
 - Using GitHub provider to manage a GitHub repository from code.
 
 ## 3. Steps
@@ -84,8 +84,6 @@ Getting familiar with terraform by:
   - Private keys for connection are stored in `.vagrant` directory.
   
   ![vagrant](images/vagrant.png)
-  
-  
   
 
 ### 3.3. GitHub
