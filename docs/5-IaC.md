@@ -47,7 +47,7 @@ The core terraform workflow consists of 3 stages:
 
 Getting familiar with terraform by:
 
-- Using Vagrant provider to provision a test infrastructure (3 VMs).
+- Using Vagrant provider to provision a test infrastructure (3 VMs serving the application with an NGINX load-balancer).
 - Using GitHub provider to manage a GitHub repository from code.
 
 ## 3. Steps
@@ -59,7 +59,7 @@ Getting familiar with terraform by:
 
 ### 3.2. Vagrant
 
-- Write `Vagrantfile` that uses [hashicorp/bionic64](hashicorp/bionic64) box for creating 3 VMs.
+- Write `Vagrantfile` that uses [hashicorp/bionic64](https://app.vagrantup.com/hashicorp/boxes/bionic64) box to create 3 VMs for app and a fourth one for the load balancer.
   
   ```bash
   vagrant up       # Start and provision environment
@@ -67,14 +67,8 @@ Getting familiar with terraform by:
   vagrant destroy  # Destroy the environment.
   ```
 
-- On success, 3 VMs should be visible in VirtualBox GUI.
-  - **Default credentials:** vagrant:vagrant
-  - Information about forwarded ports and how to SSH into the machines are found in the output of `vagrant up` and can be customized from code.
-
-  ![vagrant](images/vagrant.png)
+- Write `main.tf` that uses vagrant provider and `outputs.tf` that shows forwarded ports.
   
-- Write `main.tf` that uses vagrant provider to achieve the same result
-
   ```bash
   terraform init      # Prepare workspace
   terraform validate  # Check configuration for validity
@@ -83,6 +77,16 @@ Getting familiar with terraform by:
   terraform apply     # Execute the plan
   terraform destroy   # Destroy created infrastructure
   ```
+  
+- On success, 4 VMs should be visible in VirtualBox GUI.
+  
+  - **Default credentials for testing:** vagrant:vagrant
+  - Private keys for connection are stored in `.vagrant` directory.
+  
+  ![vagrant](images/vagrant.png)
+  
+  
+  
 
 ### 3.3. GitHub
 

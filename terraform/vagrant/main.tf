@@ -11,6 +11,7 @@ provider "vagrant" {}
 
 resource "vagrant_vm" "vagrantbox" {
   env = {
+    # To inform terraform about Vagrantfile updates.
     VAGRANTFILE_HASH = md5(file("./Vagrantfile")),
   }
   get_ports = true

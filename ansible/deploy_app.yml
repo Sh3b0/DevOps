@@ -1,0 +1,8 @@
+- hosts: app
+  tasks:
+    - name: deploy Python app
+      docker_container:
+        name: app_python
+        image: sh3b0/app_python
+        ports:
+          - "8080:8080"
