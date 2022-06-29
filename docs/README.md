@@ -5,7 +5,7 @@ Each phase in the SDLC has a corresponding file that contains:
 - General steps taken during work.  
 - Best practices learnt.  
 
-## Sections
+## Phases
 1. [Development](./1-development.md)
 2. [Testing](./2-testing.md)
 3. [Building](3-building.md)
