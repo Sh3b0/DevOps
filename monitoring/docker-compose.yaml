@@ -2,49 +2,50 @@
 ---
 version: "3"
 
-networks:
-  loki:
+x-common-config: &common
+  logging:
+    driver: json-file
+    options:
+      tag: "{{.Name}}"
+      max-size: "100m"
+      max-file: "3"
+  mem_limit: "512M"
 
 services:
   app:
+    <<: *common
     image: sh3b0/app_python # Or app_nodejs
-    # ports:
-    #   - "8080:8080"
-    networks:
-      - loki
-  
-  prometheus:
-    image: prom/prometheus:latest
     ports:
-      - "9090:9090"
-    volumes:
-      - ./config:/mnt/config
-    command: --config.file=/mnt/config/prometheus-config.yaml
-    networks:
-      - loki
-
+      - "8080:8080"
+    
   loki:
+    <<: *common
     image: grafana/loki:2.5.0
     # ports:
     #   - "3100:3100"
     volumes:
       - ./config:/mnt/config
     command: -config.file=/mnt/config/loki-config.yaml
-    networks:
-      - loki
 
   promtail:
+    <<: *common
     image: grafana/promtail:2.5.0
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers  # Needed for container logs
       - ./config:/mnt/config
     command: -config.file=/mnt/config/promtail-config.yaml
-    networks:
-      - loki
 
   grafana:
+    <<: *common
     image: grafana/grafana:latest
     ports:
       - "3000:3000"
-    networks:
-      - loki
+
+  prometheus:
+    <<: *common
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config:/mnt/config
+    command: --config.file=/mnt/config/prometheus-config.yaml

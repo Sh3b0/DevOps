@@ -1,9 +1,9 @@
 # https://github.com/prometheus/prometheus/blob/main/documentation/examples/prometheus.yml
 ---
 global:
-  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
-  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
-  # scrape_timeout is set to the global default (10s).
+  # scrape_interval: 1m     # Default is 1m.
+  # evaluation_interval: 1m # Default is 1m.
+  # scrape_timeout: 10s     # Default is 10s.
 
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
@@ -21,4 +21,4 @@ scrape_configs:
 
   - job_name: "app"
     static_configs:
-      - targets: [loki:8080]
+      - targets: [app:8080]

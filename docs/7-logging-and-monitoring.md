@@ -62,44 +62,65 @@
 
 ### 3.2. Exporting Metrics
 
-- An HTTP endpoint for application metrics need to be exposed by the application for scraping by prometheus.
-- We can define our own metrics and export them using client libraries for [Python](https://github.com/prometheus/client_python) and [NodeJS](https://github.com/siimon/prom-client), or use  existing exporters like [prometheus-flask-exporter](https://github.com/rycus86/prometheus_flask_exporter) for Python app and [swagger-stats](https://github.com/slanatech/swagger-stats) for NodeJS app.
+- An HTTP endpoint for application metrics need to be exposed by the application for scraping by Prometheus.
+- We can define our own metrics and export them using [client libraries for Python and NodeJS](https://prometheus.io/docs/instrumenting/clientlibs/), or use 3rd party exporters like [prometheus-flask-exporter](https://github.com/rycus86/prometheus_flask_exporter) for Python app and [swagger-stats](https://github.com/slanatech/swagger-stats) for NodeJS app.
 
 ### 3.3. Preparing Environment
 
 - Write a `docker-compose.yml` for deploying the application with the logging and monitoring stack in a single network [[ref.](https://github.com/grafana/loki/blob/main/production/docker-compose.yaml)].
-- Write configuration files for Promtail [[ref.](https://grafana.com/docs/loki/latest/clients/promtail/configuration/)], Loki [[ref.](https://grafana.com/docs/loki/latest/configuration/examples/)], and prometheus [[ref.](https://github.com/prometheus/prometheus/blob/main/documentation/examples/prometheus.yml)].
-  - Loki configuration specifies internal settings for Loki server and where to store logs (locally or remotely).
-  - Promtail configuration contains information on the Promtail server, where positions are stored, and how to scrape logs from files.
-  - Prometheus configuration defines target endpoints to scrape and how often to scrape them.
+- Write configuration files for Loki [[ref.](https://grafana.com/docs/loki/latest/configuration/examples/)], Promtail [[ref.](https://grafana.com/docs/loki/latest/clients/promtail/configuration/)], and Prometheus [[ref.](https://github.com/prometheus/prometheus/blob/main/documentation/examples/prometheus.yml)] and copy them to containers or use a volume.
+  - **Loki configuration** specifies internal settings for Loki server and where to store logs (locally or remotely).
+  - **Promtail configuration** contains information on the Promtail server, where positions are stored, and how to scrape logs from files.
+  - **Prometheus configuration** defines target endpoints to scrape and how often to scrape them.
+- Run the 3 containers with a `command` that specifies config file location.
 
 
 ### 3.4. Demo
 
 - Run `docker-compose up` and verify that all containers are running.
 
+- Verify the application is running at http://locaohost:8080 
+
+- Verify Prometheus UI is accessible at http://locaohost:9090 and all targets are up in status tab, you can also run queries with autocompletion.
+
+  ![monitoring-1](./images/monitoring-1.png)
+
 - Verify Grafana UI is accessible at http://localhost:3000
 
   - Default credentials: `admin:admin`
 
-- Configuration &rarr; Data source &rarr; Add data source &rarr; Loki &rarr; URL = `http://loki:3100` &rarr; Save and test.
+- Configuration &rarr; Data source &rarr; Add data source
 
-  ![monitoring-1](./images/monitoring-1.png)
+  - &rarr; Loki &rarr; URL = `http://loki:3100` &rarr; Save and test.
 
-- Explore &rarr; Add query &rarr; Code &rarr; Write LogQL query or use UI builder.
+  - &rarr; Prometheus &rarr; URL = `http://prometheus:9090` &rarr; Save and test.
+    - We can also add built-in Prometheus stats dashboard.
 
-  > - Example query that shows application logs `{job="containerlogs",filename="/var/lib/docker/containers/526e6761312f*/526e6761312f*-json.log"}`
-  > - Container ID can be found by running `docker ps`
+- Explore &rarr; Loki &rarr; Add query &rarr; Write PromQL query or use UI builder.
 
-  ![monitoring-2](./images/monitoring-2.png)
+  - Example query that shows application logs `{tag="monitoring_app_1"}`
+
+    ![monitoring-2](./images/monitoring-2.png)
+
+- Explore &rarr; Loki &rarr; Add query &rarr; Write PromQL query or use UI builder.
+
+  - Example query showing endpoint responses: `sum by(status) (flask_http_request_total)`
+
+    ![monitoring-3](./images/monitoring-3.png)
+
+- Now we can create interesting dashboards from data collected by Prometheus and Loki and export them as reusable JSON.
+
+  ![monitoring-4](./images/monitoring-4.png)
 
 
 
 ## 4. Best Practices
 
+- Official guides: [Grafana](https://grafana.com/docs/grafana/latest/best-practices/), [Loki](https://grafana.com/docs/loki/latest/best-practices/), [Prometheus](https://prometheus.io/docs/practices/).
 - Create descriptive logs that follow a common format.
 - Implement log rotation to save memory and disk space.
 - Create simple, easy to interpret dashboards with meaningful names.
-- Make sure alerts are only triggered when attention is needed.
+- When configuring alerts, try to have them triggered only when attention is needed.
 - Avoid unnecessary dashboard reloading to reduce network load.
+- Metric names for Prometheus should have a (single-word) application prefix relevant to the domain the metric belongs to.
 
