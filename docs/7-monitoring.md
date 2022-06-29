@@ -1,4 +1,4 @@
-# Logging and Monitoring
+# Logging, Monitoring, and Visualization
 
 ## Table of Contents
 
@@ -29,13 +29,12 @@
 ### 1.1. Prometheus
 
 - A monitoring system that pulls (retrieves) **metrics** data (entries of [types](https://prometheus.io/docs/concepts/metric_types/) **counter**, **gauge**, **histogram**, and **summary**) by running a **job** against one or more **instances** and stores these data in a **time-series** database.
-- **[Client libraries](https://prometheus.io/docs/instrumenting/clientlibs/)** allow defining and exposing metrics from applications written in different programming languages.
-- [**Exporters**](https://prometheus.io/docs/instrumenting/exporters/) make metrics data of different systems (e.g., a Linux server or a database) available for scraping periodically by Prometheus through HTTP endpoints.
+- **[Client libraries](https://prometheus.io/docs/instrumenting/clientlibs/)** written in different programming languages can be used to export application metrics while [**exporters**](https://prometheus.io/docs/instrumenting/exporters/) export metrics data from different systems (e.g., a Linux server or a database).
 - Metrics database can be queried (using **PromQL**) manually through the web UI or automatically by a visualization and analytics system (e.g., Grafana) or used to configure **alerting rules** that are handled by the **alert manager**.
 
 ### 1.2. Grafana
 
-- A web application used mainly for visualization and analytics. Once deployed (e.g., as a docker image), it provides a nice UI for creating and customizing **dashboards** with **panels** (containing **graphs**, **bars**, **gauges**, **charts**, etc.) to visualize **metrics** collected by a **monitoring** solution (e.g., **Prometheus** or **Grafana Loki**) from different systems or databases.
+- A web application used mainly for visualization and analytics. Once deployed (e.g., as a docker image), it provides a nice UI for creating and customizing **dashboards** with **panels** (containing **graphs**, **bars**, **gauges**, **charts**, etc.) to visualize **metrics** or **logs** collected by a **monitoring** solution (e.g., **Prometheus** or **Grafana Loki**) from different systems or databases.
 - It can be used to configure **alerts** and has a **[plugin](https://grafana.com/grafana/plugins/)** system to extend its functionality and integrate with other tools.
 
 ### 1.3. Grafana Loki
@@ -45,7 +44,7 @@
 
 ## 2. Goal
 
-- Prepare the monitoring and visualization environment for the apps as a network of containers (application + Grafana + Prometheus + Loki with Promtail client).
+- Prepare a monitoring and visualization environment for the apps as a network of containers (application + Grafana + Prometheus + Loki with Promtail client).
 - Configure Loki to monitor logs from all running containers and Prometheus to monitor metrics of itself, Loki, and the application.
 - Create a Grafana dashboard to visualize the scraped data.
 
@@ -53,7 +52,7 @@
 
 ### 3.1. Logging
 
-- Make sure the application generates logs that can be accessed when running container.
+- Make sure the application generates logs that can be accessed when running the container.
 - (Optional) write code to generate application-specific logs:
   - **Python App:** Flask provides `Flask.Logger` which is a standard [`logging`.Logger](https://docs.python.org/3/library/logging.html#logging.Logger)  
   - **NodeJS App:** `console` utilities for `debug`, `warn`, and `error` can be used.

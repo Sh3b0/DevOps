@@ -13,8 +13,8 @@ In this repository, two web applications are created to practice:
 - [x] Continuous Integration with Jenkins and GitHub Actions.
 - [x] Infrastructure as Code with Terraform.
 - [x] Configuration Management with Ansible.
-- [ ] Monitoring metrics with Prometheus and logs with Loki.
-- [ ] Visualization and analytics with Grafana.
+- [x] Monitoring with Prometheus and Grafana Loki.
+- [x] Visualization and analytics with Grafana.
 - [ ] Container Orchestration with K8s.
 
 ## Applications

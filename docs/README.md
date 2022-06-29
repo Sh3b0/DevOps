@@ -8,6 +8,6 @@
 4. [Continuous Integration](./4-CI.md)
 5. [Infrastructure as Code](./5-IaC.md)
 6. [Continuous Deployment](./6-CD.md)
-7. [Logging and Monitoring](./7-logging-and-monitoring.md)
+7. [Monitoring](./7-monitoring.md)
 8. [Container Orchestration](./8-container-orchestration.md)
 
