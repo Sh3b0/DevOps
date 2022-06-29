@@ -8,14 +8,15 @@ DevOps training repository. Check [docs](./docs) for detailed work documentation
 
 In this repository, two web applications are created to practice:
 
-- [x] Web application development and testing with Python and TypeScript.
+- [x] Web application development with Python and TypeScript.
+- [x] Testing with Pytest and Jest.
 - [x] Packaging and building with Docker.
 - [x] Continuous Integration with Jenkins and GitHub Actions.
 - [x] Infrastructure as Code with Terraform.
 - [x] Configuration Management with Ansible.
 - [x] Monitoring with Prometheus and Grafana Loki.
 - [x] Visualization and analytics with Grafana.
-- [ ] Container Orchestration with K8s.
+- [ ] Container Orchestration with Kubernetes.
 
 ## Applications
 
