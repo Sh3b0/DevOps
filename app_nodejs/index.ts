@@ -6,7 +6,7 @@ import { handleClient } from './src/server';
 
 // Create http server and socket.io server
 const app = express();
-export const HTTPServer = http.createServer(app);
+const HTTPServer = http.createServer(app);
 const io = new Server(HTTPServer);
 
 // Serve static files to client

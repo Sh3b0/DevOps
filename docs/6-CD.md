@@ -12,9 +12,7 @@
 
    3.1. [Prerequisites](#3.1-Prerequisites)
 
-   3.2. [Installing docker on VMs](#3.2.-Installing-Docker-on-VMs)
-
-   3.3. [Deploying Apps](#3.3.-Deploying-Apps)
+   3.2. [Create Ansible Roles](#3.2.-Create-Ansible-Roles)
 
 4. [Best Practices](#4.-Best-Practices)
 
@@ -48,35 +46,19 @@
 
 - Forwarded SSH ports will be printed, note them down to use in Ansible config.
 
-- Create inventory (`ansible/inventory.ini`) with configurations for connecting to VMs.
-
-- Create project configuration (`ansible/ansible.cfg`) and override inventory file location to use the one just created.
-
-  - You may also disable `host_key_checking` as it requires interactive input to add VMs to `~/.ssh/known_hosts`.
+- Create inventory (`ansible/hosts`) with configurations for connecting to VMs.
 
 - Specify `ansible_ssh_private_key_file=<key_file>` in inventory.
 
   - Key files can be found in `.vagrant` directory which should be ignored from the VCS.
 
+- Create project configuration (`ansible/ansible.cfg`) and override inventory file location to use the one just created.
+
+  - You may also disable `host_key_checking` as it requires interactive input to add VMs to `~/.ssh/known_hosts`.
+
 - Test connection with `ping` module
 
   ![ansible-1](images/ansible-1.png)
-
-### 3.2. Installing docker on VMs 
-
-- Create a playbook that installs docker (`install_docker.yml`)
-
-- Execute the playbook: `ansible-playbook install_docker.yml`
-
-  ![ansible-2](images/ansible-2.png)
-
-- Verify that docker is installed
-
-  ![ansible-3](images/ansible-3.png)
-
-### 3.3. Deploying Apps
-
-- Create and execute `config_nginx.yml` that will install and configure nginx on the loadbalancer VM.
 
 - Install [community.docker collection](https://galaxy.ansible.com/community/docker)
 
@@ -84,17 +66,31 @@
   ansible-galaxy collection install community.docker
   ```
 
-- Install `python3-pip` and [Docker SDK for Python](https://pypi.org/project/docker/).
+### 3.2. Create Ansible Roles
 
-- Create and execute `deploy_app.yml` that will pull and run latest app images from DockerHub on app VMs.
+- Create 3 roles inside `ansible/roles` directory for:
 
-- If everything goes fine, application should be accessible at http://localhost:8080
+  - Installing nginx on the loadbalancer VM with a given `nginx.conf`.
+  - Installing docker on `app` VMs specified in `hosts` file.
+  - Deploying application image with a given `dockerhub_id` and `app_name`
+
+- Test the roles: `ansible-playbook site.yml`
+
+  ![ansible-2](images/ansible-2.png)
+
+- Verify that docker is installed and application image is running
+
+  ![ansible-3](images/ansible-3.png)
+
+- Verify that app is running on http://localhost:8080
 
 - You may also schedule [Watchtower](https://github.com/containrrr/watchtower) to automatically update app images from DockerHub.
 
 ## 4. Best Practices
 
 - A module should be responsible for one small simple task.
+
+- Use the recommended [directory structure](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#role-directory-structure) for roles.
 
 - Use `ansible-playbook --check` to check actions before taking them (not all modules support this).
 

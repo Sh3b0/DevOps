@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-    <script src="{{ url_for('static', filename='js/luxon.min.js') }}"></script>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>TimeApp</title>
 </head>
 
@@ -24,17 +24,19 @@
 </body>
 
 <script>
-    let DateTime = luxon.DateTime;
     let timeText = document.getElementById('time');
     let zoneText = document.getElementById('tz');
-    let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    let formatter = Intl.DateTimeFormat("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric"
+    });
 
     function updateTime() {
-        timeText.textContent =
-            DateTime.now().setZone(timeZone).toLocaleString(DateTime.TIME_WITH_SECONDS);
+        timeText.textContent = formatter.format();
     }
 
-    zoneText.textContent = timeZone;
+    zoneText.textContent = formatter.resolvedOptions().timeZone;
     setInterval(updateTime, 1000);
 </script>
 

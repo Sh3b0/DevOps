@@ -8,14 +8,14 @@ DevOps training repository. Check [docs](./docs) for detailed work documentation
 
 In this repository, two web applications are created to practice:
 
-- [x] Web application development/testing with Python and JavaScript.
-- [x] Application Containerization with Docker.
-- [x] CI/CD with Jenkins and GitHub Actions.
+- [x] Web application development and testing with Python and TypeScript.
+- [x] Packaging and building with Docker.
+- [x] Continuous Integration with Jenkins and GitHub Actions.
 - [x] Infrastructure as Code with Terraform.
-- [ ] Configuration Management with Ansible.
-- [ ] Container Orchestration with K8s.
-- [ ] Monitoring with Prometheus.
+- [x] Configuration Management with Ansible.
+- [ ] Monitoring metrics with Prometheus and logs with Loki.
 - [ ] Visualization and analytics with Grafana.
+- [ ] Container Orchestration with K8s.
 
 ## Applications
 

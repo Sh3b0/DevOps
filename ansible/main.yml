@@ -1,5 +1,0 @@
-- import_playbook: config_nginx.yml
-- import_playbook: install_docker.yml
-- import_playbook: deploy_app.yml
-  vars:
-    app_name: app_nodejs # specify app_nodejs or app_python
