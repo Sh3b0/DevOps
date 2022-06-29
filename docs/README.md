@@ -1,6 +1,6 @@
 # Documentation
 
-Each phase in the SDLC has a corresponding file that contains:  
+Each phase in the DevOps cycle has a corresponding file that contains:  
 - Short overview of used technologies.  
 - General steps taken during work.  
 - Best practices learnt.  
