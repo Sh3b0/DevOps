@@ -1,4 +1,4 @@
-# Building Phase
+# Building
 
 ## Table of Contents
 

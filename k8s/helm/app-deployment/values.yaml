@@ -1,0 +1,18 @@
+# Default values for the Helm Chart
+---
+
+# Number of replicas required
+replicaCount: 1
+
+# Application image and tag
+image: sh3b0/app_python:latest
+
+# Port exposed by application container
+containerPort: 8080
+
+# Port to expose by the created service
+servicePort: 80
+
+# Resource limits for deployment
+memoryLimit: "128Mi"
+cpuLimit: "500m"

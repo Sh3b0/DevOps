@@ -1,4 +1,4 @@
-# Testing Phase
+# Testing
 
 ## Table of Contents
 

@@ -1,9 +1,10 @@
 # Documentation
 
-Each phase in the DevOps cycle has a corresponding file that contains:  
-- Short overview of used technologies.  
-- General steps taken during work.  
-- Best practices learnt.  
+Each phase in the DevOps cycle has a corresponding Markdown file that contains:
+- Short overview of used technologies.
+- Goal of the phase.
+- General steps taken to accomplish the goal.
+- Best practices learned.
 
 ## Phases
 1. [Development](./1-development.md)

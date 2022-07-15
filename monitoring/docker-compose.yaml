@@ -14,7 +14,7 @@ x-common-config: &common
 services:
   app:
     <<: *common
-    image: sh3b0/app_python # Or app_nodejs
+    image: sh3b0/app_python:latest # Or app_nodejs
     ports:
       - "8080:8080"
     
