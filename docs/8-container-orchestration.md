@@ -166,7 +166,7 @@
 
   ```bash
   cd k8s/helm
-  helm install -f my_values.yaml my-chart ./app-deployment
+  helm install --set image=sh3b0/app_nodejs:latest my-chart ./app-deployment
   
   helm list            # to see installed charts
   minikube dashboard   # opens a web UI for debugging
@@ -202,9 +202,9 @@
   - Using a template file at `k8s/helm/secret.yaml`
     - The secret values are exposed as environment variables to the container using `container.env` list.
     - Since that configuration section can be used frequently, it is defined as a named template `DB.CREDS` in `k8s/helm/app_deployment/templates/_helpers.tpl` and included in `deployment.yaml` with the proper indentation length.
-    - Verify the variables are accessible by pods.
-
-  ![k8s-secret](./images/k8s-secret.png)
+    - Verify the variables are accessible by pods.  
+    
+        ![k8s-secret](./images/k8s-secret.png)
 
 ### 3.4. LimitRange
 
@@ -241,9 +241,9 @@
 
 - Edit `templates/deployment.yaml` to mount `config/` directory as a volume in `/app` in the app container.
 
-- Install the chart and verify config is available in the container.
+- Install the chart and verify config is available in the container.  
 
-  ![k8s-cm](./images/k8s-cm.png)
+    ![k8s-cm](./images/k8s-cm.png)
 
 ### 3.6. StatefulSet
 
