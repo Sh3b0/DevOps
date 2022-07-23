@@ -1,4 +1,4 @@
 # Example usecase for the created chart to install the nodejs app
 #  here we can override the default values in app-deployment/values.yaml
 
-image: sh3b0/app_nodejs:latest
+image: sh3b0/app_python:latest

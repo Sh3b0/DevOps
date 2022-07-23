@@ -53,18 +53,21 @@ npm run ci
 ## Release
 
 ```bash
+export DOCKERHUB_ID=<YOUR_DOCKERHUB_ID>
+export APP_NAME=app_nodejs
+
 # To build app image
-docker build -t <DOCKERHUB_ID>/app_nodejs .
+docker build -t $DOCKERHUB_ID/$APP_NAME .
 
 # Testing the built image locally (http://localhost:8080)
-docker run -p8080:8080 <DOCKERHUB_ID>/app_nodejs
+docker run -p8080:8080 $DOCKERHUB_ID/$APP_NAME
 
 # Tag image with last commit SHA (or use semantic versioning)
-docker tag <DOCKERHUB_ID>/app_nodejs <DOCKERHUB_ID>/app_nodejs:$(git rev-parse --short HEAD)
+docker tag $DOCKERHUB_ID/$APP_NAME $DOCKERHUB_ID/$APP_NAME:$(git rev-parse --short HEAD)
 
 # Login and push image to dockerhub
-docker login -u <DOCKERHUB_ID> # Enter password/token when prompted
-docker push <DOCKERHUB_ID>/app_nodejs --all-tags
+docker login -u $DOCKERHUB_ID # Enter password/token when prompted
+docker push $DOCKERHUB_ID/$APP_NAME --all-tags
 ```
 
 

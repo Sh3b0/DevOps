@@ -16,6 +16,9 @@ spec:
     spec:
       containers:
       - name: app
+        env:  # just for testing 
+        - name: TEST_ENV
+          value: "Set by K8s"
         image: sh3b0/app_nodejs:latest
         ports:
         - containerPort: 8080 # port exposed by the app image

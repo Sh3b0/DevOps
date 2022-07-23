@@ -14,8 +14,9 @@ spec:
       labels:
         app: app
     spec:
-      containers:
+      containers:  
       - name: app
+        {{- include "DB.CREDS" . | indent 8 }}
         image: {{ .Values.image }}
         ports:
         - containerPort: {{ .Values.containerPort }}
@@ -24,3 +25,10 @@ spec:
           limits:
             memory: {{ .Values.memoryLimit }}
             cpu: {{ .Values.cpuLimit }}
+        volumeMounts:
+        - name: config-volume
+          mountPath: /config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: app-cm
