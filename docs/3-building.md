@@ -2,13 +2,13 @@
 
 ## Table of Contents
 
-1. [Goal](#1.-Goal)
+1. [Goal](#1-Goal)
 
-2. [Steps](#2.-Steps)
+2. [Steps](#2-Steps)
 
-3. [Best Practices](#3.-Best-Practices)
+3. [Best Practices](#3-Best-Practices)
 
-   3.1. [General](#3.1.-General)
+   3.1. [General](#3.1-General)
 
    3.2. [Python App](#3.2-Python-App)
 

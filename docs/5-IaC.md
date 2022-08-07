@@ -2,25 +2,25 @@
 
 ## Table of Contents
 
-1. [Overview](#1.-Overview)
+1. [Overview](#1-Overview)
 
-   1.1. [Terraform](#1.1.-Terraform)
+   1.1. [Terraform](#1.1-Terraform)
 
-   1.2. [Vagrant](#1.2.-Vagrant)
+   1.2. [Vagrant](#1.2-Vagrant)
 
-2. [Goal](#2.-Goal)
+2. [Goal](#2-Goal)
 
-3. [Steps](#3.-Steps)
+3. [Steps](#3-Steps)
 
-   3.1. [Prerequisites](#3.1.-Prerequisites)
+   3.1. [Prerequisites](#3.1-Prerequisites)
 
-   3.2. [Vagrant](#3.2.-Vagrant)
+   3.2. [Vagrant](#3.2-Vagrant)
 
    3.3. [GitHub](#3.3-GitHub)
 
-   ​	3.3.1. [Screenshots](#3.3.1.-Screenshots)
+   ​	3.3.1. [Screenshots](#3.3.1-Screenshots)
 
-4. [Best Practices](#4.-Best-Practices)
+4. [Best Practices](#4-Best-Practices)
 
 ## 1. Overview
 

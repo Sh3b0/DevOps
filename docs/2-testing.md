@@ -2,9 +2,9 @@
 
 ## Table of Contents
 
-1. [Goal](#1.-Goal)
+1. [Goal](#1-Goal)
 
-2. [Steps](#2.-Steps)
+2. [Steps](#2-Steps)
 
    2.1. [Python App](#2.1-Python-App)
 

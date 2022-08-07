@@ -4,7 +4,7 @@
 
 1. [Overview](#1-Overview)
 
-   1.1. [Ansible](#1.1.-Ansible)
+   1.1. [Ansible](#1.1-Ansible)
 
 2. [Goal](#2-Goal)
 
@@ -12,9 +12,9 @@
 
    3.1. [Prerequisites](#3.1-Prerequisites)
 
-   3.2. [Create Ansible Roles](#3.2.-Create-Ansible-Roles)
+   3.2. [Create Ansible Roles](#3.2-Create-Ansible-Roles)
 
-4. [Best Practices](#4.-Best-Practices)
+4. [Best Practices](#4-Best-Practices)
 
 ## 1. Overview
 
