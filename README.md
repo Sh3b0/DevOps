@@ -16,7 +16,7 @@ In this repository, two web applications are created to practice:
 - [x] Configuration Management with Ansible.
 - [x] Monitoring with Prometheus and Grafana Loki.
 - [x] Visualization and analytics with Grafana.
-- [ ] Container Orchestration with Kubernetes.
+- [x] Container Orchestration with Kubernetes.
 
 ## Applications
 
