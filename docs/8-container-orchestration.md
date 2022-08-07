@@ -8,7 +8,7 @@
 
    ​	1.1.1. [Overview](#111-Overview)
 
-   ​	1.1.2. [Common API Resources](#112-API-Resources)
+   ​	1.1.2. [Common API Resources](#112-Common-API-Resources)
 
    ​	1.1.3. [Highlighted Properties](#113-Highlighted-Properties)
 
