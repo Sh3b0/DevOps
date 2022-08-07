@@ -6,15 +6,15 @@
 
 2. [Steps](#2-Steps)
 
-   2.1. [Python App](#2.1-Python-App)
+   2.1. [Python App](#21-Python-App)
 
-   2.2. [NodeJS App](#2.2-NodeJS-App)
+   2.2. [NodeJS App](#22-NodeJS-App)
 
 3. [Best Practices](#3-Best-Practices)
 
-   3.1. [Python App](#3.1-Python-App)
+   3.1. [Python App](#31-Python-App)
 
-   3.2. [NodeJS App](#3.2-NodeJS-App)
+   3.2. [NodeJS App](#32-NodeJS-App)
 
 ## 1. Goal
 

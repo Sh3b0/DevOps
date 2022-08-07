@@ -4,31 +4,31 @@
 
 1. [Overview](#1-Overview)
 
-   1.1. [Kubernetes](#1.1-Kubernetes)
+   1.1. [Kubernetes](#11-Kubernetes)
 
-   ​	1.1.1. [Overview](#1.1.1-Overview)
+   ​	1.1.1. [Overview](#111-Overview)
 
-   ​	1.1.2. [Common API Resources](#1.1.2-API-Resources)
+   ​	1.1.2. [Common API Resources](#112-API-Resources)
 
-   ​	1.1.3. [Highlighted Properties](#1.1.3-Highlighted-Properties)
+   ​	1.1.3. [Highlighted Properties](#113-Highlighted-Properties)
 
-   1.2. [Helm](#1.2-Helm)
+   1.2. [Helm](#12-Helm)
 
 2. [Goals](#2-Goals)
 
 3. [Steps](#3-Steps)
 
-   3.1. [Creating a Deployment](#3.1-Creating-a-Deployment)
+   3.1. [Creating a Deployment](#31-Creating-a-Deployment)
 
-   3.2. [Writing Helm Charts](#3.2-Writing-Helm-Charts)
+   3.2. [Writing Helm Charts](#32-Writing-Helm-Charts)
 
-   3.3. [Secret Management](#3.3-Secret-Management)
+   3.3. [Secret Management](#33-Secret-Management)
 
-   3.4. [Resource Restrictions](#3.4-Resource-Restrictions)
+   3.4. [Resource Restrictions](#34-Resource-Restrictions)
 
-   3.5. [Application Configuration](#3.5-Application-Configuration)
+   3.5. [Application Configuration](#35-Application-Configuration)
 
-   3.6. [Managing Stateful Apps](#3.6-Managing-Stateful-Apps)
+   3.6. [Managing Stateful Apps](#36-Managing-Stateful-Apps)
 
 4. [Best Practices](#4-Best-Practices)
 

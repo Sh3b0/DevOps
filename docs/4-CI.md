@@ -4,23 +4,23 @@
 
 1. [Overview](#1-Overview)
 
-   1.1. [GitHub Actions](#1.1-GitHub-Actions)
+   1.1. [GitHub Actions](#11-GitHub-Actions)
 
-   1.2. [Jenkins](#1.2-Jenkins)
+   1.2. [Jenkins](#12-Jenkins)
 
 2. [Goal](#2-Goal)
 
 3. [Steps](#3-Steps)
 
-   3.1. [Python App](#3.1-Python-App)
+   3.1. [Python App](#31-Python-App)
 
-   3.2. [NodeJS App](#3.2-NodeJS-App)
+   3.2. [NodeJS App](#32-NodeJS-App)
 
 4. [Best Practices](#4-Best-Practices)
 
-   4.1. [GitHub Actions](#4.1-GitHub-Actions)
+   4.1. [GitHub Actions](#41-GitHub-Actions)
 
-   4.2. [Jenkins](#4.2-Jenkins)
+   4.2. [Jenkins](#42-Jenkins)
 
 ## 1. Overview
 

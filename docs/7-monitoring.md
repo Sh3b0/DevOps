@@ -4,23 +4,23 @@
 
 1. [Overview](#1-Overview)
 
-   1.1. [Prometheus](#1.1-Prometheus)
+   1.1. [Prometheus](#11-Prometheus)
 
-   1.2. [Grafana](#1.2-Grafana)
+   1.2. [Grafana](#12-Grafana)
 
-   1.3. [Grafana Loki](#1.3-Grafana-Loki)
+   1.3. [Grafana Loki](#13-Grafana-Loki)
 
 2. [Goal](#2-Goal)
 
 3. [Steps](#3-Steps)
 
-   3.1. [Logging](#3.1-Logging)
+   3.1. [Logging](#31-Logging)
 
-   3.2. [Exporting Metrics](#3.2-Exporting-Metrics)
+   3.2. [Exporting Metrics](#32-Exporting-Metrics)
 
-   3.3. [Preparing Environment](#3.3-Preparing-Environment)
+   3.3. [Preparing Environment](#33-Preparing-Environment)
 
-   3.4. [Demo](#3.4-Demo)
+   3.4. [Demo](#34-Demo)
 
 4. [Best Practices](#4-Best-Practices)
 

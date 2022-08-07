@@ -8,11 +8,11 @@
 
 3. [Best Practices](#3-Best-Practices)
 
-   3.1. [General](#3.1-General)
+   3.1. [General](#31-General)
 
-   3.2. [Python App](#3.2-Python-App)
+   3.2. [Python App](#32-Python-App)
 
-   3.3. [NodeJS App](#3.3-NodeJS-App)
+   3.3. [NodeJS App](#33-NodeJS-App)
 
 ## 1. Goal
 
