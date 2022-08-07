@@ -6,11 +6,11 @@
 
    1.1. [Kubernetes](#11-Kubernetes)
 
-   ​ 1.1.1. [Overview](#111-Overview)
+    1.1.1. [Overview](#111-Overview)
 
-   ​ 1.1.2. [Common API Resources](#112-Common-API-Resources)
+    1.1.2. [Common API Resources](#112-Common-API-Resources)
 
-   ​ 1.1.3. [Highlighted Properties](#113-Highlighted-Properties)
+    1.1.3. [Highlighted Properties](#113-Highlighted-Properties)
 
    1.2. [Helm](#12-Helm)
 
@@ -29,6 +29,10 @@
    3.5. [Application Configuration](#35-Application-Configuration)
 
    3.6. [Managing Stateful Apps](#36-Managing-Stateful-Apps)
+
+   3.7. [Using Init-Containers](#37-Using-Init-Containers)
+
+   3.8. [Deploying Community Charts](#38-Deploying-Community-Charts)
 
 4. [Best Practices](#4-Best-Practices)
 
@@ -115,6 +119,10 @@
 5. Create a ConfigMap with some JSON data and mount it as a volume.
 
 6. Modify applications so that they do something persistent, and create a StatefulSet to manage their state.
+
+7. Use an init-container to download a file and inject it into an application container.
+
+8. Deploy [Kube-Prometheus-Stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) to monitor k8s and manage alerts.
 
 ## 3. Steps
 
@@ -347,6 +355,100 @@
   - **No persistence guarantees:** `visits.json` for each pod will maintain state between pod restarts, but all data will be lost when the StatefulSet is deleted for any reason.
   - **No consistency guarantees:** each pod will get its copy of the path on host and modify it separately, so accessing `/visits` on the web will give inconsistent results.
   - All the above issues are addressed in production by using a remote storage (outside of k8s cluster) such as `nfs` and managing data consistency in application logic (e.g., using master and slaves DB replicas where master is the only pod with write access).
+
+### 3.7. Using Init-Containers
+
+- Init containers run before the main containers in the pod, they can be used to do some initialization tasks.
+
+- Create a pod (`k8s/minikube/init-container.yaml`) that runs an init container to download a file, save it to a volume, and access it from the main container.
+
+  ![init-container](./images/init-container.png)
+
+### 3.8. Deploying Community Charts
+
+#### Install `kube-prometheus-stack` chart
+
+```bash
+# Add prometheus-community repo to helm
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+# Update chart index
+helm repo update
+
+# Install kube-prometheus-stach in the monitoring namespace.
+# Creating the namespace if required
+helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring --create-namespace
+```
+
+#### **Default components deployed by the chart**
+
+- **Prometheus**: the monitoring system scraping metrics from other components. The chart also deploys external related components.
+  - **AlertManager**: system to send alerts based on certain rules (e.g., scraped value for a certain metric exceeded a certain threshold).
+  - **NodeExporter**: a daemonset running on all nodes and exporting a `/metrics` endpoint for scraping by Prometheus.
+  - **Kube-state-metrics**: exports metrics about kubernetes itself.
+- **Prometheus Operator**: k8s integration/plugin for Protmetheus, allows deploying custom resources (notably, `ServiceMonitor`, `PodMonitor`, and `PrometheusRule`) through CRDs.
+- **Grafana**: the visualization web app with pre-created dashboards showing the metrics collected by Prometheus.
+
+#### **Default resources created by the chart**
+
+```bash
+# Some of the resources deployed by the chart
+$ kubectl get deployment,svc,sts,ds
+deployment.apps/monitoring-grafana
+deployment.apps/monitoring-kube-prometheus-operator
+deployment.apps/monitoring-kube-state-metrics
+service/alertmanager-operated
+service/monitoring-grafana
+service/monitoring-kube-prometheus-alertmanager
+service/monitoring-kube-prometheus-operator
+service/monitoring-kube-prometheus-prometheus
+service/monitoring-kube-state-metrics
+service/monitoring-prometheus-node-exporter
+service/prometheus-operated
+daemonset.apps/monitoring-prometheus-node-exporter
+statefulset.apps/alertmanager-monitoring-kube-prometheus-alertmanager
+statefulset.apps/prometheus-monitoring-kube-prometheus-prometheus
+
+# Other resources (configmaps, secrets, serviceaccount, crds, ...)
+```
+
+#### **Accessing dashboards**
+
+- For testing with minkube, metrics plugin should be added
+
+  ```bash
+  minikube addons enable metrics-server
+  ```
+
+- `kubectl port-forward svc/monitoring-grafana 80 -n monitoring`
+
+- Access dashboards at <http://localhost/dashboards>, default creds: `admin:prom-operator`
+
+#### Memory and CPU usage
+
+![cpu-mem](./images/mem-cpu.png)
+
+#### Node metrics
+
+![node-metrics](./images/node-metrics.png)
+
+#### Kubelet
+
+![kubelet](./images/kubelet.png)
+
+#### Pod Networking
+
+![pod-net](./images/pod-net.png)
+
+![pod-net-2](./images/pod-net-2.png)
+
+![pod-net-2](./images/pod-net-3.png)
+
+#### Alerts
+
+![prom-alerts](./images/prom-alerts.png)
+
+![alertman](./images/alertman.png)
 
 ## 4. Best Practices
 
