@@ -73,18 +73,17 @@
   - **Prometheus configuration** defines target endpoints to scrape and how often to scrape them.
 - Run the 3 containers with a `command` that specifies config file location.
 
-
 ### 3.4. Demo
 
 - Run `docker-compose up` and verify that all containers are running.
 
-- Verify the application is running at http://locaohost:8080 
+- Verify the application is running at <http://locaohost:8080>  
 
-- Verify Prometheus UI is accessible at http://locaohost:9090 and all targets are up in status tab, you can also run queries with autocompletion.
+- Verify Prometheus UI is accessible at <http://locaohost:9090> and all targets are up in status tab, you can also run queries with autocompletion.
 
   ![monitoring-1](./images/monitoring-1.png)
 
-- Verify Grafana UI is accessible at http://localhost:3000
+- Verify Grafana UI is accessible at <http://localhost:3000>
 
   - Default credentials: `admin:admin`
 
@@ -111,8 +110,6 @@
 
   ![monitoring-4](./images/monitoring-4.png)
 
-
-
 ## 4. Best Practices
 
 - Official guides: [Grafana](https://grafana.com/docs/grafana/latest/best-practices/), [Loki](https://grafana.com/docs/loki/latest/best-practices/), [Prometheus](https://prometheus.io/docs/practices/).
@@ -122,4 +119,3 @@
 - When configuring alerts, try to have them triggered only when attention is needed.
 - Avoid unnecessary dashboard reloading to reduce network load.
 - Metric names for Prometheus should have a (single-word) application prefix relevant to the domain the metric belongs to.
-

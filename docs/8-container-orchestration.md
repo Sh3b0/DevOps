@@ -6,11 +6,11 @@
 
    1.1. [Kubernetes](#11-Kubernetes)
 
-   ​	1.1.1. [Overview](#111-Overview)
+   ​ 1.1.1. [Overview](#111-Overview)
 
-   ​	1.1.2. [Common API Resources](#112-Common-API-Resources)
+   ​ 1.1.2. [Common API Resources](#112-Common-API-Resources)
 
-   ​	1.1.3. [Highlighted Properties](#113-Highlighted-Properties)
+   ​ 1.1.3. [Highlighted Properties](#113-Highlighted-Properties)
 
    1.2. [Helm](#12-Helm)
 
@@ -67,11 +67,11 @@
 
   - **`NodePort`:** expose the service on each Node's IP at a static port (`.spec.ports[*].nodePort`)
   - **`LoadBalancer`:** creates a provider-specific load balancer between pods selected by the service.
-  - **`ExternalName`: ** creates a CNAME DNS record for the service with name `.spec.externalName`.  
+  - **`ExternalName`:** creates a CNAME DNS record for the service with name `.spec.externalName`.  
 
 - **`Pod.spec.strategy.type`** (how k8s replaces old pods with new ones)
-  - **`RollingUpdate` (default):** creates extra pods (not more than `.spec.strategy.rollingUpdate.maxSurge`) to replace old (terminating) ones while not exceeding a `maxUnavailable` number/percentage of running pods. 
-  - **`Recreate`: **fully terminate old pods before starting new ones, implies downtime.
+  - **`RollingUpdate` (default):** creates extra pods (not more than `.spec.strategy.rollingUpdate.maxSurge`) to replace old (terminating) ones while not exceeding a `maxUnavailable` number/percentage of running pods.  
+  - **`Recreate`:** fully terminate old pods before starting new ones, implies downtime.
 
 - **`Pod.spec.nodeSelector`**
   - Pods can be assigned to any node in a cluster, a `nodeSelector` restricts a certain pod to only run on nodes having certain labels assigned to certain values.
@@ -90,16 +90,16 @@
 
   - **Library charts** on the other hand are not meant for deployment, they are typically included as dependencies to other charts to allow reusing snippets of code across charts and avoid duplication.
 
-- **A templating engine:** the packaged YAML files can use the [Helm templating language](https://helm.sh/docs/chart_template_guide/) that can generate different k8s manifests from the same source file through [values files](https://helm.sh/docs/chart_template_guide/values_files/). 
+- **A templating engine:** the packaged YAML files can use the [Helm templating language](https://helm.sh/docs/chart_template_guide/) that can generate different k8s manifests from the same source file through [values files](https://helm.sh/docs/chart_template_guide/values_files/).  
 
 - **Basic Directory structure of a helm chart:**
 
   ```bash
   mychart/
-  	templates/   # YAML bundle (where .Values object is accissble)
-  	charts/      # Chart dependencies
-  	Chart.yaml   # Chart metadata: name, version, dependencies, etc.
-  	values.yaml  # Default values for the template files
+    templates/   # YAML bundle (where .Values object is accissble)
+    charts/      # Chart dependencies
+    Chart.yaml   # Chart metadata: name, version, dependencies, etc.
+    values.yaml  # Default values for the template files
   ```
 
 ## 2. Goals
@@ -108,7 +108,7 @@
 
 2. Create a helm chart from the previously-created manifest.
 
-3. Create a secret (e.g., for DB username and password) and inject it as an environment variable to the deployment pods. 
+3. Create a secret (e.g., for DB username and password) and inject it as an environment variable to the deployment pods.  
 
 4. Set LimitRanges for CPU and memory usage on pods.
 
@@ -132,7 +132,7 @@
 
 - Create an external service to make the app accessible from outside.
 
-  ```
+  ```bash
   kubectl expose deployment python-app --type=LoadBalancer --port=8080
   ```
 
@@ -154,7 +154,7 @@
   replicaset.apps/python-app-cc8f9dc84   1         1         1       9m28s
   ```
 
-- When deploying on cloud, an external IP for the service will be available. For testing with minikube, run the following command to get a URL for accessing the service. 
+- When deploying on cloud, an external IP for the service will be available. For testing with minikube, run the following command to get a URL for accessing the service.  
 
   ```bash
   minikube service python-app --url
@@ -199,7 +199,7 @@
 
 - Create chart files and directories manually or use `helm create app-deployment` to add some boilerplate.
 
-- Copy the previously-created YAMLs to `templates` directory, parametrize them and put default values in `values.yaml` 
+- Copy the previously-created YAMLs to `templates` directory, parametrize them and put default values in `values.yaml`  
 
 - **Example use case:** deploy nodejs app for the chart
 
@@ -232,7 +232,7 @@
   admin
   ```
   
-- Secrets can be mounted as volumes or exposed as environment variables to pods. 
+- Secrets can be mounted as volumes or exposed as environment variables to pods.  
 
 - The same is done:
 
@@ -241,7 +241,7 @@
     - The secret values are read from `values.yaml` and mounted as environment variables in the application container using `container.env` list, an existing secret can also be used.
     - Since that configuration section can be used frequently, it is defined as a named template `env.db_creds` in `k8s/helm/app_deployment/templates/_helpers.tpl` and included in `deployment.yaml` with the proper indentation length.
     - Verify the variables are accessible by pods.  
-    
+
         ![k8s-secret](./images/k8s-secret.png)
 
 - A secret management tool like **Hashicorp Vault** is typically used in production to provide more control and security.
@@ -274,9 +274,9 @@
 - Applications may need config files to operate. Create a dummy config for testing
 
   ```bash
-  $ cd k8s/helm/app-deployment/
-  $ mkdir files
-  $ echo '{ "key": "value" }' > files/config.json
+  cd k8s/helm/app-deployment/
+  mkdir files
+  echo '{ "key": "value" }' > files/config.json
   ```
 
 - Create `templates/configmap.yaml` ConfigMap resource with the data from the JSON file.
@@ -294,7 +294,7 @@
   - `db/visits.json` storing the number of times `/` was accessed by user.
   - `/visits` endpoint returning the content of `visits.json`
 
-- Create `statefulset.yaml` with a headless service, StatefulSet ([example](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#components)), and a PVC template mounted at `/app/db` 
+- Create `statefulset.yaml` with a headless service, StatefulSet ([example](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#components)), and a PVC template mounted at `/app/db`  
 
 - Deploy or upgrade the chart:
 
@@ -348,12 +348,8 @@
   - **No consistency guarantees:** each pod will get its copy of the path on host and modify it separately, so accessing `/visits` on the web will give inconsistent results.
   - All the above issues are addressed in production by using a remote storage (outside of k8s cluster) such as `nfs` and managing data consistency in application logic (e.g., using master and slaves DB replicas where master is the only pod with write access).
 
-  
-
-
-
 ## 4. Best Practices
 
-- https://kubernetes.io/docs/setup/best-practices/
+- <https://kubernetes.io/docs/setup/best-practices/>
 
-- https://helm.sh/docs/chart_best_practices/
+- <https://helm.sh/docs/chart_best_practices/>

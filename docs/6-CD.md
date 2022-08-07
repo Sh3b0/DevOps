@@ -29,7 +29,7 @@
 
 ## 2. Goal
 
-- Getting familiar with Ansible by writing plays to automatically install docker and deploy one of the applications on the Vagrant VMs created during the previous phase. 
+- Getting familiar with Ansible by writing plays to automatically install docker and deploy one of the applications on the Vagrant VMs created during the previous phase.  
 
 ## 3. Steps
 
@@ -62,7 +62,7 @@
 
 - Install [community.docker collection](https://galaxy.ansible.com/community/docker)
 
-  ```
+  ```bash
   ansible-galaxy collection install community.docker
   ```
 
@@ -82,13 +82,13 @@
 
   ![ansible-3](images/ansible-3.png)
 
-- Verify that app is running on http://localhost:8080
+- Verify that app is running on <http://localhost:8080>
 
 - You may also schedule [Watchtower](https://github.com/containrrr/watchtower) to automatically update app images from DockerHub.
 
 ## 4. Best Practices
 
-https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html
+- [Documentation Reference](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html)
 
 - A module should be responsible for one small simple task.
 
@@ -105,5 +105,3 @@ https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html
 - Use dynamic inventory when working with cloud hosts to avoid manual IP/hostname configurations.
 
 - Use `state` to specify the desired module state so that modules won’t execute twice unless needed.
-
-  

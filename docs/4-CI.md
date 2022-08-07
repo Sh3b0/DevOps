@@ -56,7 +56,7 @@
 ### 3.2. NodeJS App
 
 - Navigate to `jenkins` directory and run `docker-compose up` to run the Jenkins server.
-- Use the password from the command line to access the UI at http://localhost:8080
+- Use the password from the command line to access the UI at <http://localhost:8080>
 - Set up and configure the necessary plugins for credentials, pipeline stage view, git, and nodejs.
 - Create a multibranch pipeline.
 - Write `Jenkinsfile` to install dependencies, run server, run tests, then login and push image to DockerHub.

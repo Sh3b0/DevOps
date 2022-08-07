@@ -36,7 +36,7 @@
 - Install `@types/jest` to configure IDE support for jest.
 - Install `ts-jest` to use TypeScript with jest.
 - Write test suites and run `jest` to verify that tests are working.
-- Add script to `package.json` to quickly run tests for CI/CD. 
+- Add script to `package.json` to quickly run tests for CI/CD.  
 - Add testing instructions to README.
 
 ## 3. Best Practices

@@ -18,7 +18,7 @@
 
    3.3. [GitHub](#33-GitHub)
 
-   ​	3.3.1. [Screenshots](#331-Screenshots)
+   ​ 3.3.1. [Screenshots](#331-Screenshots)
 
 4. [Best Practices](#4-Best-Practices)
 
@@ -34,8 +34,7 @@ The core terraform workflow consists of 3 stages:
 - **Plan:** terraform creates an execution plan describing actions (e.g., create, modify, or destroy resources) that will be taken based on existing infrastructure **state** (stored in the **backend**) and current **workspace** configuration.
 - **Apply:** interact with the service/platform-specific API through their **providers** (published on [**registry**](https://registry.terraform.io/)) to execute the plan.
   - **Named values** are used for working with API keys or other configurations to allow re-usability and avoid hard-coding.
-  - **Modules** are used to group resources that are used together as a reusable package. 
-
+  - **Modules** are used to group resources that are used together as a reusable package.  
 
 ### 1.2. Vagrant
 
@@ -84,7 +83,6 @@ Getting familiar with terraform by:
   - Private keys for connection are stored in `.vagrant` directory.
   
   ![vagrant](images/vagrant.png)
-  
 
 ### 3.3. GitHub
 
