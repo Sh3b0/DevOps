@@ -2,7 +2,7 @@
 
 # DevOps
 
-DevOps training repository. Check [docs](./docs) for detailed work documentation.
+DevOps training repository. Check [Repository Wiki](https://github.com/Sh3B0/DevOps/wiki) or [docs directory](./docs) for detailed work documentation.
 
 ## Overview
 
