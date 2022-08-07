@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - "docs/**"
-      - ".github/workflows/"
+      - ".github/workflows/wiki_sync.yaml"
 
 jobs:
   wiki-sync:
