@@ -354,6 +354,6 @@
 
 ## 4. Best Practices
 
-https://kubernetes.io/docs/setup/best-practices/
+- https://kubernetes.io/docs/setup/best-practices/
 
-https://helm.sh/docs/chart_best_practices/
+- https://helm.sh/docs/chart_best_practices/

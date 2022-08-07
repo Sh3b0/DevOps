@@ -41,7 +41,7 @@
 
 ## 3. Best Practices
 
-### 3.1 Python App
+### 3.1. Python App
 
 - Use an appropriate testing framework (e.g., `pytest`).
 - Use a recommended directory hierarchy for organizing tests.

@@ -22,14 +22,14 @@
 
 ## 2. Steps
 
-### 2.1 Python App
+### 2.1. Python App
 
 - Create `app_python` directory and initialize a virtual environment with `python -m venv venv`
 - Install required project dependencies with `pip install` then freeze the environment with `pip freeze > requirements.txt`
 - Implement application logic.
 - Create a README with description and instructions for local development.
 
-### 2.2 NodeJS App
+### 2.2. NodeJS App
 
 - Create `app_nodejs` directory and initialize the project with `npm init`  
 - Install project dependencies and dev dependencies with `npm install`.
