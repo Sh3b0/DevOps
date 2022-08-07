@@ -17,6 +17,6 @@ jobs:
       with:
         source: docs
         destination: wiki
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.ACCESS_TOKEN }}
         gitAuthorName: sh3b0
         branch: main
