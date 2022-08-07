@@ -88,6 +88,8 @@
 
 ## 4. Best Practices
 
+https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html
+
 - A module should be responsible for one small simple task.
 
 - Use the recommended [directory structure](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#role-directory-structure) for roles.

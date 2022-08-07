@@ -1,12 +1,34 @@
-{{- if not .Values.stateful.enabled }}
-apiVersion: apps/v1
-kind: Deployment
+{{- if .Values.stateful.enabled }}
+
+---
+# Headless service to make pods in the stateful set addressable.
+
+apiVersion: v1
+kind: Service
 metadata:
-  name: app-deployment
+  name: headless-svc
+  labels:
+    app: db
+spec:
+  ports:
+  - port: 80
+    name: web
+  clusterIP: None
+  selector:
+    app: db
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: app-sts
   labels:
     app: app
 spec:
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: "Parallel"
+  serviceName: headless-svc
   selector:
     matchLabels:
       app: app
@@ -15,6 +37,7 @@ spec:
       labels:
         app: app
     spec:
+      terminationGracePeriodSeconds: 10
       containers:  
       - name: app
         {{- include "env.db_creds" . | indent 8 }}
@@ -32,8 +55,20 @@ spec:
         volumeMounts:
         - name: config-volume
           mountPath: /app/config
+        - name: db-pvc
+          mountPath: /app/db
       volumes:
       - name: config-volume
         configMap:
           name: app-cm
+
+  volumeClaimTemplates:
+  - metadata:
+      name: db-pvc
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: {{ .Values.stateful.storageRequest }}
+
 {{- end }}

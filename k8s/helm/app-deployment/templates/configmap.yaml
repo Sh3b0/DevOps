@@ -4,4 +4,4 @@ metadata:
   name: app-cm
 data:
   config.json: |-
-    {{ .Files.Get "config/config.json" }}
+    {{ .Files.Get "files/config.json" }}

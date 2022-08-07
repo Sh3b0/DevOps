@@ -6,23 +6,29 @@
 
    1.1. [Kubernetes](#1.1.-Kubernetes)
 
+   ​	1.1.1. [Overview](#1.1.1.-Overview)
+
+   ​	1.1.2. [Common API Resources](#1.1.2.-API-Resources)
+
+   ​	1.1.3. [Highlighted Properties](#1.1.3.-Highlighted-Properties)
+
    1.2. [Helm](#1.2.-Helm)
 
-2. [Goal](#2-Goal)
+2. [Goals](#2-Goals)
 
 3. [Steps](#3-Steps)
 
-   3.1. [Deployment](#3.1.-Deployment)
+   3.1. [Creating a Deployment](#3.1.-Creating-a-Deployment)
 
-   3.2. [Helm Chart](#3.2.-Helm-Chart)
+   3.2. [Writing Helm Charts](#3.2.-Writing-Helm-Charts)
 
-   3.3. [Secret](#3.3.-Secret)
+   3.3. [Secret Management](#3.3.-Secret-Management)
 
-   3.4. [LimitRange](#3.4.-LimitRange)
+   3.4. [Resource Restrictions](#3.4.-Resource-Restrictions)
 
-   3.5. [ConfigMap](#3.5.-ConfigMap)
+   3.5. [Application Configuration](#3.5.-Application-Configuration)
 
-   3.6. [StatefulSet](#3.6.-StatefulSet)
+   3.6. [Managing Stateful Apps](#3.6.-Managing-Stateful-Apps)
 
 4. [Best Practices](#4.-Best-Practices)
 
@@ -30,9 +36,12 @@
 
 ### 1.1. Kubernetes
 
-- A system for automating software deployment, scaling, and management.
+#### 1.1.1. Overview
 
-- A typical use case involves the deployment of different **[objects](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/)** (using YAML files describing their desired **spec**ification) on **nodes** (virtual or physical machines) inside the **cluster** that is **controlled** and **managed** by the **master node** which stores information about the cluster state in **etcd** database and exposes an **API** that can be interacted with from the command-line (using `kubectl`).
+- Kubernetes is a system for automating software deployment, scaling, and management.
+- A typical use case involves the deployment of different **[objects](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/)** (expressed as YAML files describing the desired object **spec**ification) on **nodes** (virtual or physical machines) inside the **cluster** that is **controlled** and **managed** by the **master node** which stores information about the cluster state in **etcd** database and exposes an **API** that can be interacted with from the command-line using `kubectl`.
+
+#### 1.1.2. Common API Resources
 
 - Common object **kind**s (check `kubectl api-resources`)
 
@@ -46,9 +55,34 @@
   | [**Secret**](https://kubernetes.io/docs/concepts/configuration/secret/) | Similar to ConfigMaps, but are specifically intended to hold confidential data (e.g., passwords and tokens). |
   | [**Ingress**](https://kubernetes.io/docs/concepts/services-networking/ingress/) | An API object that manages external access to the services in a cluster, typically HTTP. |
   | **[StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)** | A deployment for stateful applications; provides guarantees about the ordering and uniqueness of deployed Pods. |
-  | **[DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/)** | Every node in a DaemonSet runs a copy of a certain pod (e.g., for cluster storage, logs collecting, or node monitoring). For example, there can be a DaemonSet for Windows hosts and another one for Linux hosts. |
-  | **[PersistentVolume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)** | Abstraction of a persistent storage that can use a local or remote (cloud) storage as a backend. For the data to actually persist, the storage should be available for all nodes and shouldn’t depend on pod lifecycle or cluster status. |
+  | **[DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/)** | DaemonSet ensures that a copy of a certain pod (e.g., logs collector, metrics exporter, etc) is available on every node in the cluster. |
+  | **[PersistentVolume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)** | Abstraction of a persistent storage that can use a local or remote (cloud) storage as a backend. Pods can acquire portions of that storage using a PersistentVolumeClaim |
   | **[LimitRange](https://kubernetes.io/docs/concepts/policy/limit-range/)** | Enforces minimum and maximum resource usage limits per pod or container in a namespace. |
+
+#### 1.1.3. Highlighted Properties
+
+- **`Service.spec.type`** [[ref.](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)]
+  - **`ClusterIP` (default):** exposes the service only internally by giving it a cluster-internal IP.
+    - **Headless Service:** a ClusterIP service with `.spec.ClusterIP: "None"`. It is typically used with a StatefulSet to make pods addressable by a hostname as it’s needed to maintain pod identity.
+
+  - **`NodePort`:** expose the service on each Node's IP at a static port (`.spec.ports[*].nodePort`)
+  - **`LoadBalancer`:** creates a provider-specific load balancer between pods selected by the service.
+  - **`ExternalName`: ** creates a CNAME DNS record for the service with name `.spec.externalName`.  
+
+- **`Pod.spec.strategy.type`** (how k8s replaces old pods with new ones)
+  - **`RollingUpdate` (default):** creates extra pods (not more than `.spec.strategy.rollingUpdate.maxSurge`) to replace old (terminating) ones while not exceeding a `maxUnavailable` number/percentage of running pods. 
+  - **`Recreate`: **fully terminate old pods before starting new ones, implies downtime.
+
+- **`Pod.spec.nodeSelector`**
+  - Pods can be assigned to any node in a cluster, a `nodeSelector` restricts a certain pod to only run on nodes having certain labels assigned to certain values.
+- **`Pod.spec.affinity.nodeAffinity`** and **`Pod.spec.tolerations`**
+  - Node affinity expands the concept of nodeSelector to match based on constraints other than labels (e.g., this pod can only run on nodes in this geographical location).
+  - Tolerations specify whether a certain pod tolerate a certain node taint.
+    - Node taints are rules attached to a node (e.g., this node has a certain hardware, any pod that does not tolerate this hardware shall not be scheduled on that node).
+    - Taints can be added to nodes using `kubectl taint`
+
+- **`Pod.spec.affinity.podAffinity`** and **`Pod.spec.affinity.podAntiAffinity`**
+  - Sets affinity constraints based on pod properties instead of node properties.
 
 ### 1.2. Helm
 
@@ -68,18 +102,23 @@
   	values.yaml  # Default values for the template files
   ```
 
-## 2. Goal
+## 2. Goals
 
-- Deploy an application in minikube using the command line and using a manifest.
-- Create a helm chart from the previously-created manifest.
-- Create a secret (e.g., for DB username and password) and inject it as an environment variable to the deployment pods. 
-- Set LimitRanges for CPU and memory usage.
-- Create a ConfigMap with some JSON data and inject it as a volume.
-- Create a StatefulSet.
+1. Deploy an application in minikube using the command line and using a manifest.
+
+2. Create a helm chart from the previously-created manifest.
+
+3. Create a secret (e.g., for DB username and password) and inject it as an environment variable to the deployment pods. 
+
+4. Set LimitRanges for CPU and memory usage on pods.
+
+5. Create a ConfigMap with some JSON data and mount it as a volume.
+
+6. Modify applications so that they do something persistent, and create a StatefulSet to manage their state.
 
 ## 3. Steps
 
-### 3.1. Deployment
+### 3.1. Creating a Deployment
 
 - Install [kubectl](https://kubernetes.io/docs/tasks/tools/) and [minikube](https://minikube.sigs.k8s.io/docs/start/)
 
@@ -154,11 +193,11 @@
   replicaset.apps/app-deployment-69cfdc7ff9   3         3         3       9s
   ```
 
-### 3.2. Helm Chart
+### 3.2. Writing Helm Charts
 
 - Install [helm](https://helm.sh/docs/intro/install/) and navigate to `k8s/helm`
 
-- Create chart files and directories manually or use `helm create app-python` to add some boilerplate.
+- Create chart files and directories manually or use `helm create app-deployment` to add some boilerplate.
 
 - Copy the previously-created YAMLs to `templates` directory, parametrize them and put default values in `values.yaml` 
 
@@ -172,7 +211,7 @@
   minikube dashboard   # opens a web UI for debugging
   ```
 
-### 3.3. Secret
+### 3.3. Secret Management
 
 - To store secrets (e.g., database user and password) in k8s, create a secret object:
 
@@ -185,28 +224,29 @@
   
   # Verify secret exists
   $ kubectl get secrets
-  NAME                  TYPE                                  DATA   AGE
-  db-user-pass          Opaque                                2      3s
-  default-token-dmksw   kubernetes.io/service-account-token   3      40h
+  NAME           TYPE      DATA   AGE
+  db-user-pass   Opaque    2      3s
   
-  # Show secret (base64 encoded)
+  # Show secret (decoded from base64)
   $ kubectl get secret db-user-pass -o jsonpath='{.data.username}' | base64 -d
   admin
   ```
-
+  
 - Secrets can be mounted as volumes or exposed as environment variables to pods. 
 
 - The same is done:
 
   - Using a manifest file at `k8s/minikube/secret.yaml`
   - Using a template file at `k8s/helm/secret.yaml`
-    - The secret values are exposed as environment variables to the container using `container.env` list.
-    - Since that configuration section can be used frequently, it is defined as a named template `DB.CREDS` in `k8s/helm/app_deployment/templates/_helpers.tpl` and included in `deployment.yaml` with the proper indentation length.
+    - The secret values are read from `values.yaml` and mounted as environment variables in the application container using `container.env` list, an existing secret can also be used.
+    - Since that configuration section can be used frequently, it is defined as a named template `env.db_creds` in `k8s/helm/app_deployment/templates/_helpers.tpl` and included in `deployment.yaml` with the proper indentation length.
     - Verify the variables are accessible by pods.  
     
         ![k8s-secret](./images/k8s-secret.png)
 
-### 3.4. LimitRange
+- A secret management tool like **Hashicorp Vault** is typically used in production to provide more control and security.
+
+### 3.4. Resource Restrictions
 
 - Create `k8s/minikube/limitrange.yaml` with request (min) and limit (max) cpu and memory usage for all containers.
 
@@ -227,27 +267,88 @@
   ...
   ```
 
-### 3.5. ConfigMap
+- The same is done using the helm chart (in `deployment.yaml`, resources map).
 
-- Create dummy configs for testing
+### 3.5. Application Configuration
+
+- Applications may need config files to operate. Create a dummy config for testing
 
   ```bash
   $ cd k8s/helm/app-deployment/
-  $ mkdir config
-  $ echo '{ "key": "value" }' > config/config.json
+  $ mkdir files
+  $ echo '{ "key": "value" }' > files/config.json
   ```
 
 - Create `templates/configmap.yaml` ConfigMap resource with the data from the JSON file.
 
-- Edit `templates/deployment.yaml` to mount `config/` directory as a volume in `/app` in the app container.
+- Edit `templates/deployment.yaml` to mount `files/` directory as a volume in `/app/config` in the app container.
 
-- Install the chart and verify config is available in the container.  
+- Install the chart and verify the file is available in the container.
 
     ![k8s-cm](./images/k8s-cm.png)
 
-### 3.6. StatefulSet
+### 3.6. Managing Stateful Apps
 
+- Add stateful logic to the applications. For Python App, I added:
+  - `app.log` storing date and time for each `GET /` request.
+  - `db/visits.json` storing the number of times `/` was accessed by user.
+  - `/visits` endpoint returning the content of `visits.json`
 
+- Create `statefulset.yaml` with a headless service, StatefulSet ([example](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#components)), and a PVC template mounted at `/app/db` 
+
+- Deploy or upgrade the chart:
+
+  ```bash
+  helm upgrade --install app-deployment app-deployment/ --values my_values.yaml
+  ```
+
+- Show created resources
+
+  ![k8s-sts](./images/k8s-sts.png)
+
+- Test the service
+
+  ```bash
+  # Get service address
+  $ minikube service app --url
+  http://192.168.49.2:31561
+  
+  # Create some traffic using Apache Bench
+  # 114 requests, 5 requests at a time, 5 seconds before a request times out.
+  $ ab -n 114 -s 5 -c 5 http://192.168.49.2:31561/
+  ```
+
+- Check `visits.json` in different pods
+
+  ![k8s-sts-2](./images/k8s-sts-2.png)
+
+- For this application, ordering of pods is not needed, it slows down the startup and termination, this can be avoided by setting `podManagementPolicy` to `"Parallel"` in the StatefulSet spec.
+
+#### **Behind the scenes**
+
+- **For each pod in the StatefulSet, K8s will:**
+
+  - Create a PersistentVolumeClaim from the specified `volumeClaimTemplates`
+
+  - Dynamically provision a PersistentVolume at the following `hostPath` with the same properties as the PVC.
+
+    ```bash
+    /tmp/hostpath-provisioner/default/{volumeClaimTemplates.metadata.name}-{pod_name}
+    ```
+
+  - Statically bind each PVC with a corresponding PV using `volumeName` in the PVC and `claimRef` in the PV.
+
+  - Add a volume each pod named `{volumeClaimTemplates.metadata.name}` which we already mounted on the pod using `volumeMounts`.
+
+- **Concerns and Notes:**
+
+  - **Security rists:** `hostPath` volumes should be avoided overall because they allow access to the host node which introduces security risks.
+  - **No multi-node clusters:** this setup won’t work as expected when deployed on a cluster with multiple nodes, `local` volume types should be used instead of `hostPath` for this purpose.
+  - **No persistence guarantees:** `visits.json` for each pod will maintain state between pod restarts, but all data will be lost when the StatefulSet is deleted for any reason.
+  - **No consistency guarantees:** each pod will get its copy of the path on host and modify it separately, so accessing `/visits` on the web will give inconsistent results.
+  - All the above issues are addressed in production by using a remote storage (outside of k8s cluster) such as `nfs` and managing data consistency in application logic (e.g., using master and slaves DB replicas where master is the only pod with write access).
+
+  
 
 
 
