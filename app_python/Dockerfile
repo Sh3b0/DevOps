@@ -1,5 +1,5 @@
 FROM python:alpine
-WORKDIR /app
+WORKDIR /home/app/app
 COPY requirements.txt .
 ENV PYTHONUNBUFFERED=1
 RUN pip install --no-cache-dir -r requirements.txt
