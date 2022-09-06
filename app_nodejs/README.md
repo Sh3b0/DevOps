@@ -69,8 +69,3 @@ docker tag $DOCKERHUB_ID/$APP_NAME $DOCKERHUB_ID/$APP_NAME:$(git rev-parse --sho
 docker login -u $DOCKERHUB_ID # Enter password/token when prompted
 docker push $DOCKERHUB_ID/$APP_NAME --all-tags
 ```
-
-
-
-
-
