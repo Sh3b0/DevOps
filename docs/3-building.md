@@ -33,7 +33,7 @@
 - **Copy only the necessary files to the image** to make it smaller and faster, use `.dockerignore` to ignore unnecessary files and directories.
 - **Use `EXPOSE` documentation** to make port-forwarding easier for other programmers reading your `Dockerfile`.
 - **Push the image to a container registry** like DockerHub or the cloud-dedicated container registry for version control of app images and convenient deployment to the cloud.
-- **Tag the images** with it’s version or corresponding the commit id from git to easily understand which version of the code is currently in the registry.
+- **Tag the images** with it’s version or the corresponding commit id from git to easily understand which version of the code is currently in the registry.
 
 ### 3.2. Python App
 
