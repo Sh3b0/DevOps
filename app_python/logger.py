@@ -1,6 +1,11 @@
 import logging
+import os
 
-def init_logger():    
+
+# Initializes and returns the application logger
+def init_logger():
+    if not os.path.exists('logs'):
+        os.mkdir('logs')
     logger = logging.getLogger('app_logger')
     logger.setLevel(logging.DEBUG)
     fh = logging.FileHandler('logs/app.log', mode="a")

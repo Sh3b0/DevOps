@@ -1,5 +1,5 @@
-import os
 import json
+import os
 
 from flask import Flask, render_template, jsonify
 from prometheus_flask_exporter import PrometheusMetrics
@@ -17,6 +17,8 @@ logger = init_logger()
 def home():
     logger.info('GET /')
     if not os.path.exists(VISITS_FILE):
+        if not os.path.exists('db'):
+            os.mkdir('db')
         json.dump({"visits": "1"}, open(VISITS_FILE, 'w'))
     else:
         visits = int(json.load(open(VISITS_FILE))["visits"])
