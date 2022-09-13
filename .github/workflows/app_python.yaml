@@ -13,7 +13,7 @@ defaults:
     working-directory: app_python
 
 jobs:
-  lint:
+  lint-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -21,23 +21,14 @@ jobs:
         with:
           python-version: '3.10'
       - run: |
-          pip install pylint
+          pip install pylint pytest
+          pip install -r requirements.txt
           pylint app_python
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
-        with:
-          python-version: '3.10'
-      - run: |
-          pip install pytest
           python -m pytest
 
   build-and-push:
     runs-on: ubuntu-latest
-    needs: test
+    needs: lint-and-test
     steps:
       - uses: actions/checkout@v3
       - uses: docker/login-action@v2
@@ -58,6 +49,7 @@ jobs:
   
   scan:
     runs-on: ubuntu-latest
+    needs: build-and-push
     steps:
       - uses: actions/checkout@v3
       - name: Run Snyk to check Docker image for vulnerabilities
