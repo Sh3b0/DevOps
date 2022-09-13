@@ -1,18 +1,23 @@
+"""
+Application logger
+"""
 import logging
 import os
 
 
-# Initializes and returns the application logger
 def init_logger():
+    """
+    Initializes and returns the application logger
+    """
     if not os.path.exists('logs'):
         os.mkdir('logs')
     logger = logging.getLogger('app_logger')
     logger.setLevel(logging.DEBUG)
-    fh = logging.FileHandler('logs/app.log', mode="a")
-    fh.setLevel(logging.DEBUG)
-    fh.setFormatter(
+    file_handler = logging.FileHandler('logs/app.log', mode="a")
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(
         logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     )
 
-    logger.addHandler(fh)
+    logger.addHandler(file_handler)
     return logger

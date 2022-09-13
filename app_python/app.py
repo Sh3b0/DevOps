@@ -1,3 +1,6 @@
+"""
+Main application
+"""
 import json
 import os
 
@@ -15,23 +18,36 @@ logger = init_logger()
 
 @app.route("/")
 def home():
+    """
+    Returns rendered home page template
+    """
     logger.info('GET /')
     if not os.path.exists(VISITS_FILE):
         if not os.path.exists('db'):
             os.mkdir('db')
-        json.dump({"visits": "1"}, open(VISITS_FILE, 'w'))
+        visits = 0
     else:
-        visits = int(json.load(open(VISITS_FILE))["visits"])
-        json.dump({"visits": str(visits + 1)}, open(VISITS_FILE, 'w'))
+        with open(VISITS_FILE, 'r', encoding='UTF-8') as file:
+            visits = int(json.load(file)["visits"])
+
+    with open(VISITS_FILE, 'w', encoding='UTF-8') as file:
+        json.dump({"visits": str(visits + 1)}, file)
+
     return render_template('index.html')
 
 
 @app.route("/visits")
 def visitor_count():
+    """
+    Returns visitor count
+    """
     if not os.path.exists(VISITS_FILE):
         return jsonify({"visits": "0"})
-    return jsonify(json.load(open(VISITS_FILE)))
 
+    with open(VISITS_FILE, 'r', encoding='UTF-8') as file:
+        visits = jsonify(json.load(file))
+
+    return visits
 
 # When executing `python app.py` instead of `flask run`
 if __name__ == "__main__":

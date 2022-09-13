@@ -1,3 +1,6 @@
+"""
+Functional test for the application homepage
+"""
 from app import app
 
 

@@ -13,6 +13,17 @@ defaults:
     working-directory: app_python
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+      - run: |
+          pip install pylint
+          pylint app_python
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -20,9 +31,8 @@ jobs:
       - uses: actions/setup-python@v3
         with:
           python-version: '3.10'
-          cache: 'pip'
       - run: |
-          pip install -r requirements.txt
+          pip install pytest
           python -m pytest
 
   build-and-push:
@@ -45,3 +55,14 @@ jobs:
           tags: sh3b0/app_python:${{ steps.vars.outputs.tagname }} , sh3b0/app_python:latest
           cache-from: type=registry,ref=sh3b0/app_python:latest
           cache-to: type=inline
+  
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Snyk to check Docker image for vulnerabilities
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: sh3b0/app_python
