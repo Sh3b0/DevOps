@@ -48,8 +48,9 @@
 ### 3.1. Python App
 
 - Create a workflow file in [`/.github/workflows/`](/.github/workflows/) and make sure it runs only when there are relevant updates (by adding `on` triggers).
-- Add steps for installing requirements using `pip` and running `pytest`.
-- Use docker build and push actions to create a new version of the application image, login to DockerHub, then push the image with a new tag.
+- Add steps for installing requirements using `pip` and running `pylint` and `pytest`.
+- Use docker actions to build the application image, login to DockerHub, then push the image with a new tag (use semantic versioning or the short commit hash).
+- Add a step for scanning the resulting image for vulnerabilities.
 - Cache `pip` downloaded packages to make CI run faster.
 - [Cache docker image layers.](https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md)
 
