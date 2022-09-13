@@ -7,10 +7,6 @@ on:
     paths:
       - "app_python/**"
       - ".github/workflows/app_python.yaml"
-      
-defaults:
-  run:
-    working-directory: app_python
 
 jobs:
   lint-and-test:
@@ -23,8 +19,8 @@ jobs:
       - run: |
           pip install pylint pytest
           pip install -r requirements.txt
-          pylint app_python
-          python -m pytest
+          pylint app_python --ignore=venv
+          pytest app_python
 
   build-and-push:
     runs-on: ubuntu-latest
