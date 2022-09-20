@@ -58,13 +58,13 @@ Getting familiar with terraform by:
 ### 3.1. Prerequisites
 
 - Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [Terraform CLI](https://www.terraform.io/downloads), and [Vagrant CLI](https://www.vagrantup.com/downloads)
-- Create `terraform` directory with 2 subdirectories (modules) for `vagrant` and `github`
+- Create `terraform` directory with 4 subdirectories (modules) for `vagrant`, `github`, `docker`, and `aws`.
 
 ### 3.2. Docker Provider
 
 - Write `main.tf` that uses docker provider [kreuzwerker/docker](https://github.com/kreuzwerker/terraform-provider-docker) to create resources of types `docker_image` and a `docker_container`.
 
-- Parametrize container_name in `variables.tf` and define outputs in `outputs.tf`
+- Parametrize `container_name` in `variables.tf` and define outputs in `outputs.tf`
 
 - Use terraform to run `sh3b0/app_python`
 
@@ -77,7 +77,7 @@ Getting familiar with terraform by:
   terraform plan       # Show execution plan
   ```
 
-- Apply plan with custom value: `terraform apply -v 'container_name=app_python'`
+- Apply plan with the custom value: `terraform apply -var 'container_name=app_python'`
 
   ![tf-apply](./images/tf-apply.png)
 
