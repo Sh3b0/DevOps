@@ -14,11 +14,13 @@
 
    3.1. [Prerequisites](#31-Prerequisites)
 
-   3.2. [Vagrant](#32-Vagrant)
+   3.2. [Docker Provider](#32-Docker-Provider)
 
-   3.3. [GitHub](#33-GitHub)
+   3.3. [Vagrant Provider](#33-Vagrant-Provider)
 
-   ​ 3.3.1. [Screenshots](#331-Screenshots)
+   3.4. [GitHub Provider](#34-GitHub-Provider)
+
+   3.5. [AWS Provider](#35-AWS-Provider)
 
 4. [Best Practices](#4-Best-Practices)
 
@@ -46,8 +48,10 @@ The core terraform workflow consists of 3 stages:
 
 Getting familiar with terraform by:
 
-- Using Vagrant provider to provision a test infrastructure (3 VMs serving the application with an NGINX load-balancer in front of them).
-- Using GitHub provider to manage a GitHub repository from code.
+- Experimenting with the [Docker provider](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs) following [this tutorial](https://learn.hashicorp.com/collections/terraform/docker-get-started).
+- Using [Vagrant provider](https://registry.terraform.io/providers/bmatcuk/vagrant/latest/docs) to provision a test infrastructure (3 VMs serving the application with an NGINX load-balancer in front of them).
+- Using [GitHub provider](https://registry.terraform.io/providers/integrations/github/latest/docs) to manage an existing GitHub repository from code.
+- Using [AWS provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs) to provision an EC2 instance.
 
 ## 3. Steps
 
@@ -56,7 +60,32 @@ Getting familiar with terraform by:
 - Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [Terraform CLI](https://www.terraform.io/downloads), and [Vagrant CLI](https://www.vagrantup.com/downloads)
 - Create `terraform` directory with 2 subdirectories (modules) for `vagrant` and `github`
 
-### 3.2. Vagrant
+### 3.2. Docker Provider
+
+- Write `main.tf` that uses docker provider [kreuzwerker/docker](https://github.com/kreuzwerker/terraform-provider-docker) to create resources of types `docker_image` and a `docker_container`.
+
+- Parametrize container_name in `variables.tf` and define outputs in `outputs.tf`
+
+- Use terraform to run `sh3b0/app_python`
+
+  ```bash
+  docker pull sh3b0/app_python
+  docker tag sh3b0/app_python app_python
+  terraform init       # Prepare workspace and download providers
+  terraform validate   # Check configuration for validity
+  terraform fmt        # Format source file
+  terraform plan       # Show execution plan
+  ```
+
+- Apply plan with custom value: `terraform apply -v 'container_name=app_python'`
+
+  ![tf-apply](./images/tf-apply.png)
+
+- Show state
+
+  ![tf-state](./images/tf-state.png)
+
+### 3.3. Vagrant Provider
 
 - Write `Vagrantfile` that uses [hashicorp/bionic64](https://app.vagrantup.com/hashicorp/boxes/bionic64) box to create 3 VMs for app and a fourth one for the load balancer.
   
@@ -69,12 +98,11 @@ Getting familiar with terraform by:
 - Write `main.tf` that uses vagrant provider and `outputs.tf` that shows forwarded ports.
   
   ```bash
-  terraform init      # Prepare workspace
+  terraform init      # Prepare workspace and download providers
   terraform validate  # Check configuration for validity
   terraform fmt       # Format source file
   terraform plan      # Show execution plan
   terraform apply     # Execute the plan
-  terraform destroy   # Destroy created infrastructure
   ```
   
 - On success, 4 VMs should be visible in VirtualBox GUI.
@@ -84,7 +112,9 @@ Getting familiar with terraform by:
   
   ![vagrant](images/vagrant.png)
 
-### 3.3. GitHub
+- Run `terraform destroy` to destroy the created infrastructure.
+
+### 3.4. GitHub Provider
 
 - Write `main.tf` that uses `integrations/github` provider.
 - Configure `github` provider with `token` declared in `variables.tf` and assign the value from command line or `.tfvars` file.
@@ -96,8 +126,6 @@ Getting familiar with terraform by:
   ```
 
 - Use the same terraform commands as above to manage the repository configuration from terraform.
-
-#### 3.3.1. Screenshots
 
 - **Test repository created manually**
 
@@ -114,6 +142,32 @@ Getting familiar with terraform by:
 - **Branch protection rules applied**
 
   ![gh-4](images/gh-4.png)
+
+### 3.5. AWS Provider
+
+- Write `main.tf` that uses  `hashicorp/aws` provider to provision an EC2 instance by creating an `aws_instance` resource.
+
+- Specify the OS to run using its corresponding AMI ([Ubuntu](https://cloud-images.ubuntu.com/locator/ec2/) examples).
+
+- Run
+
+  ```bash
+  export AWS_ACCESS_KEY_ID=<iam_access_key>
+  export AWS_SECRET_ACCESS_KEY=<iam_secret_key>
+  terraform init
+  terraform validate
+  terraform fmt
+  terraform plan
+  terraform apply
+  ```
+
+- Verify instance was created
+
+  ![tf-aws](./images/tf-aws.png)
+
+- Destroy instance with `terraform destroy`
+
+  ![tf-destroy](./images/tf-destroy.png)
 
 ## 4. Best Practices
 
