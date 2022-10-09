@@ -18,3 +18,9 @@
   vars:
     dockerhub_id: sh3b0
     app_name: app_nodejs # specify app_nodejs or app_python
+
+# - name: "Wipe application"
+#   hosts: app
+#   become: true
+#   roles:
+#     - wipe

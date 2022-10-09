@@ -74,7 +74,7 @@
   - Installing docker on `app` VMs specified in `hosts` file.
   - Deploying application image with a given `dockerhub_id` and `app_name`
 
-- Test the roles: `ansible-playbook site.yml`
+- Test the roles: `ansible-playbook main.yml`
 
   ![ansible-2](images/ansible-2.png)
 
