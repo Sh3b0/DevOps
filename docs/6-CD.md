@@ -46,13 +46,13 @@
 
 - Forwarded SSH ports will be printed, note them down to use in Ansible config.
 
-- Create inventory (`ansible/hosts`) with configurations for connecting to VMs.
+- Create inventory [ansible/hosts.ini](../ansible/hosts.ini) with configurations for connecting to VMs.
 
 - Specify `ansible_ssh_private_key_file=<key_file>` in inventory.
 
   - Key files can be found in `.vagrant` directory which should be ignored from the VCS.
 
-- Create project configuration (`ansible/ansible.cfg`) and override inventory file location to use the one just created.
+- Create project configuration [ansible/ansible.cfg](../ansible/ansible.cfg) and override inventory file location to use the one just created.
 
   - You may also disable `host_key_checking` as it requires interactive input to add VMs to `~/.ssh/known_hosts`.
 
@@ -68,11 +68,14 @@
 
 ### 3.2. Create Ansible Roles
 
-- Create 3 roles inside `ansible/roles` directory for:
+- Create 4 roles inside [ansible/roles](../ansible/roles) directory for:
 
-  - Installing nginx on the loadbalancer VM with a given `nginx.conf`.
-  - Installing docker on `app` VMs specified in `hosts` file.
-  - Deploying application image with a given `dockerhub_id` and `app_name`
+  - [Installing nginx](../ansible/roles/nginx) on the loadbalancer VM with a given `nginx.conf`.
+  - [Installing docker](../ansible/roles/docker) on `app` VMs specified in `hosts` file.
+  - [Deploying application image](../ansible/roles/deploy) with a given `dockerhub_id` and `app_name`
+  - [Wiping application from VMs](../ansible/roles/wipe).
+
+- Write [main.yml](../ansible/main.yml) that executes such roles against the VMs.
 
 - Test the roles: `ansible-playbook main.yml`
 

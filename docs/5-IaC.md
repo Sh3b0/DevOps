@@ -62,9 +62,9 @@ Getting familiar with terraform by:
 
 ### 3.2. Docker Provider
 
-- Write `main.tf` that uses docker provider [kreuzwerker/docker](https://github.com/kreuzwerker/terraform-provider-docker) to create resources of types `docker_image` and a `docker_container`.
+- Write [main.tf](../terraform/docker/main.tf) that uses docker provider [kreuzwerker/docker](https://github.com/kreuzwerker/terraform-provider-docker) to create resources of types `docker_image` and a `docker_container`.
 
-- Parametrize `container_name` in `variables.tf` and define outputs in `outputs.tf`
+- Parametrize `container_name` in [variables.tf](../terraform/docker/variables.tf) and define outputs in `outputs.tf`
 
 - Use terraform to run `sh3b0/app_python`
 
@@ -87,7 +87,7 @@ Getting familiar with terraform by:
 
 ### 3.3. Vagrant Provider
 
-- Write `Vagrantfile` that uses [hashicorp/bionic64](https://app.vagrantup.com/hashicorp/boxes/bionic64) box to create 3 VMs for app and a fourth one for the load balancer.
+- Write [Vagrantfile](../terraform/vagrant/Vagrantfile) that uses [hashicorp/bionic64](https://app.vagrantup.com/hashicorp/boxes/bionic64) box to create 3 VMs for app and a fourth one for the load balancer.
   
   ```bash
   vagrant up       # Start and provision environment
@@ -95,7 +95,7 @@ Getting familiar with terraform by:
   vagrant destroy  # Destroy the environment.
   ```
 
-- Write `main.tf` that uses vagrant provider and `outputs.tf` that shows forwarded ports.
+- Write [main.tf](../terraform/vagrant/main.tf) that uses vagrant provider and [outputs.tf](../terraform/vagrant/outputs.tf) that shows forwarded ports.
   
   ```bash
   terraform init      # Prepare workspace and download providers
@@ -116,8 +116,8 @@ Getting familiar with terraform by:
 
 ### 3.4. GitHub Provider
 
-- Write `main.tf` that uses `integrations/github` provider.
-- Configure `github` provider with `token` declared in `variables.tf` and assign the value from command line or `.tfvars` file.
+- Write [main.tf](../terraform/github/main.tf) that uses `integrations/github` provider.
+- Configure `github` provider with `token` declared in [variables.tf](../terraform/github/variables.tf) and assign the value from command line or `.tfvars` file.
 - Declare resources of types `github_repository`, `github_branch`, `github_branch_default`, and `github_branch_protection_v3`  with the desired configurations.
 - Import the remote repo to use the existing configuration
   
@@ -145,7 +145,7 @@ Getting familiar with terraform by:
 
 ### 3.5. AWS Provider
 
-- Write `main.tf` that uses  `hashicorp/aws` provider to provision an EC2 instance by creating an `aws_instance` resource.
+- Write [main.tf](../terraform/aws/main.tf) that uses  `hashicorp/aws` provider to provision an EC2 instance by creating an `aws_instance` resource.
 
 - Specify the OS to run using its corresponding AMI ([Ubuntu](https://cloud-images.ubuntu.com/locator/ec2/) examples).
 

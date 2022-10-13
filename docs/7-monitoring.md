@@ -22,6 +22,8 @@
 
    3.4. [Demo](#34-Demo)
 
+   3.5. [Dashboards](#35-Dashboards)
+
 4. [Best Practices](#4-Best-Practices)
 
 ## 1. Overview
@@ -66,8 +68,8 @@
 
 ### 3.3. Preparing Environment
 
-- Write a `docker-compose.yml` for deploying the application with the logging and monitoring stack in a single network [[ref.](https://github.com/grafana/loki/blob/main/production/docker-compose.yaml)].
-- Write configuration files for Loki [[ref.](https://grafana.com/docs/loki/latest/configuration/examples/)], Promtail [[ref.](https://grafana.com/docs/loki/latest/clients/promtail/configuration/)], and Prometheus [[ref.](https://github.com/prometheus/prometheus/blob/main/documentation/examples/prometheus.yml)] and copy them to containers or use a volume.
+- Write a [docker-compose.yml](../monitoring/docker-compose.yaml) for deploying the application with the logging and monitoring stack in a single network [[ref.](https://github.com/grafana/loki/blob/main/production/docker-compose.yaml)].
+- Write [configuration files](../monitoring/config) for Loki [[ref.](https://grafana.com/docs/loki/latest/configuration/examples/)], Promtail [[ref.](https://grafana.com/docs/loki/latest/clients/promtail/configuration/)], and Prometheus [[ref.](https://github.com/prometheus/prometheus/blob/main/documentation/examples/prometheus.yml)] and copy them to containers or use a volume.
   - **Loki configuration** specifies internal settings for Loki server and where to store logs (locally or remotely).
   - **Promtail configuration** contains information on the Promtail server, where positions are stored, and how to scrape logs from files.
   - **Prometheus configuration** defines target endpoints to scrape and how often to scrape them.
@@ -77,9 +79,9 @@
 
 - Run `docker-compose up` and verify that all containers are running.
 
-- Verify the application is running at <http://locaohost:8080>  
+- Verify the application is running at <http://localhost:8080>  
 
-- Verify Prometheus UI is accessible at <http://locaohost:9090> and all targets are up in status tab, you can also run queries with autocompletion.
+- Verify Prometheus UI is accessible at <http://localhost:9090> and all targets are up in status tab, you can also run queries with autocompletion.
 
   ![monitoring-1](./images/monitoring-1.png)
 
@@ -96,19 +98,41 @@
 
 - Explore &rarr; Loki &rarr; Add query &rarr; Write PromQL query or use UI builder.
 
+  - We can see that container logs were scraped successfully.
+
+    ![containerlogs](./images/containerlogs.png)
+
   - Example query that shows application logs `{tag="monitoring_app_1"}`
 
     ![monitoring-2](./images/monitoring-2.png)
 
-- Explore &rarr; Loki &rarr; Add query &rarr; Write PromQL query or use UI builder.
-
-  - Example query showing endpoint responses: `sum by(status) (flask_http_request_total)`
+  - Example query showing application endpoint responses: `sum by(status) (flask_http_request_total)`
 
     ![monitoring-3](./images/monitoring-3.png)
 
+### 3.5. Dashboards
+
 - Now we can create interesting dashboards from data collected by Prometheus and Loki and export them as reusable JSON.
 
+- We can also import ready-to-use dashboards for monitoring [loki](https://grafana.com/grafana/dashboards/13407) and [prometheus](https://grafana.com/grafana/dashboards/3662)
+
+  - Dashboards &rarr; New &rarr; Import &rarr; Upload JSON File.
+
+- **Application dashboard created from Grafana UI.**
+
+  - Left panel has type `Logs` and uses Loki data source with query: `{tag="monitoring_app_1"}`
+  - Right panel has type `Pie Chart` and uses Prometheus data source with query `sum by(status) (flask_http_request_total)` exported by `prometheus-flask-exporter` for the Python app.
+  - Dashboard can be [exported](../monitoring/dashboard.json) from settings (gear icon) &rarr; Save Dashboard
+
   ![monitoring-4](./images/monitoring-4.png)
+
+- **Dashboards for Prometheus and Loki**
+
+  - Note that metrics names or Grafana dashboard types may change over time, rendering panels with no data. Queries need to be modified accordingly to reflect latest changes.
+
+    ![prom-dashboard](./images/prom-dashboard.png)
+
+    ![loki-dashboard](./images/loki-dashboard.png)
 
 ## 4. Best Practices
 

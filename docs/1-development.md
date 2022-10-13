@@ -24,17 +24,17 @@
 
 ### 2.1. Python App
 
-- Create `app_python` directory and initialize a virtual environment with `python -m venv venv`
+- Create [app_python](../app_python) directory and initialize a virtual environment with `python -m venv venv`
 - Install required project dependencies with `pip install` then freeze the environment with `pip freeze > requirements.txt`
 - Implement application logic.
-- Create a README with description and instructions for local development.
+- Create a [README.md](../app_python/README.md) with description and instructions for local development.
 
 ### 2.2. NodeJS App
 
-- Create `app_nodejs` directory and initialize the project with `npm init`  
+- Create [app_nodejs](../app_nodejs) directory and initialize the project with `npm init`  
 - Install project dependencies and dev dependencies with `npm install`.
 - Implement application logic.
-- Create a README with description and instructions for local development.
+- Create a [README.md](../app_nodejs/README.md) with description and instructions for local development.
 
 ## 3. Best practices
 

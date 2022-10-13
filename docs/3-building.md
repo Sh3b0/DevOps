@@ -21,7 +21,10 @@
 
 ## 2. Steps
 
-- Write a `Dockerfile`  in the root directory for each project.
+- Write a `Dockerfile`  in the root directory for each project
+  - [app_python/Dockerfile](../app_python/Dockerfile)
+  - [app_nodejs/Dockerfile](../app_nodejs/Dockerfile)
+
 - Add build and release instructions to the README.
 
 ## 3. Best Practices

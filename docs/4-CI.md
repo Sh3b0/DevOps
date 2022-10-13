@@ -47,7 +47,7 @@
 
 ### 3.1. Python App
 
-- Create a workflow file in [`/.github/workflows/`](/.github/workflows/) and make sure it runs only when there are relevant updates (by adding `on` triggers).
+- Create [`.github/workflows/app_python.yaml`](../.github/workflows/app_python.yaml) and make sure it runs only when there are relevant updates (by adding `on` triggers).
 - Add steps for installing requirements using `pip` and running `pylint` and `pytest`.
 - Use docker actions to build the application image, login to DockerHub, then push the image with a new tag (use semantic versioning or the short commit hash).
 - Add a step for scanning the resulting image for vulnerabilities.
@@ -56,11 +56,11 @@
 
 ### 3.2. NodeJS App
 
-- Navigate to `jenkins` directory and run `docker-compose up` to run the Jenkins server.
+- Write [jenkins/docker-compose.yaml](../jenkins/docker-compose.yaml) and run jenkins server using `docker-compose up`.
 - Use the password from the command line to access the UI at <http://localhost:8080>
 - Set up and configure the necessary plugins for credentials, pipeline stage view, git, and nodejs.
 - Create a multibranch pipeline.
-- Write `Jenkinsfile` to install dependencies, run server, run tests, then login and push image to DockerHub.
+- Write [Jenkinsfile](../jenkins/Jenkinsfile) to install dependencies, run server, run tests, then login and push image to DockerHub.
 - Configure Jenkins to find `Jenkinsfile` by path and run workflow on pushes to the `main` branch with included region set to `app_nodejs` directory.
 - To trigger builds automatically, a webhook should be used.
   - For local Jenkins deployment this is not possible and we have to manually tell Jenkins to `Build now`

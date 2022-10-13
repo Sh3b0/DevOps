@@ -175,7 +175,7 @@
   kubectl delete deployment.apps/python-app
   ```
 
-- Create `deployment.yml` and `service.yml` inside `k8s/minikube` directory to do the same from configuration files instead of stdin.
+- Create [deployment.yaml](../k8s/minikube/deployment.yaml) and [service.yaml](../k8s/minikube/service.yaml) inside `k8s/minikube` directory to do the same from configuration files instead of stdin.
 
 - Apply configuration and check results
 
@@ -207,7 +207,7 @@
 
 - Create chart files and directories manually or use `helm create app-deployment` to add some boilerplate.
 
-- Copy the previously-created YAMLs to `templates` directory, parametrize them and put default values in `values.yaml`  
+- Copy the previously-created YAMLs to `templates` directory, parametrize them and put default values in [values.yaml](../k8s/helm/app-deployment/values.yaml)
 
 - **Example use case:** deploy nodejs app for the chart
 
@@ -244,10 +244,10 @@
 
 - The same is done:
 
-  - Using a manifest file at `k8s/minikube/secret.yaml`
-  - Using a template file at `k8s/helm/secret.yaml`
-    - The secret values are read from `values.yaml` and mounted as environment variables in the application container using `container.env` list, an existing secret can also be used.
-    - Since that configuration section can be used frequently, it is defined as a named template `env.db_creds` in `k8s/helm/app_deployment/templates/_helpers.tpl` and included in `deployment.yaml` with the proper indentation length.
+  - Using a manifest file at [k8s/minikube/secret.yaml](../k8s/minikube/secret.yaml)
+  - Using a template file at [k8s/helm/secret.yaml](../k8s/helm/secret.yaml)
+    - The secret values are read from [values.yaml](../k8s/helm/app-deployment/values.yaml) and mounted as environment variables in the application container using `container.env` list, an existing secret can also be used.
+    - Since that configuration section can be used frequently, it is defined as a named template `env.db_creds` in [`k8s/helm/app-deployment/templates/_helpers.tpl`](../k8s/helm/app-deployment/templates/_helpers.tpl) and included in [deployment.yaml](../k8s/helm/app-deployment/templates/deployment.yaml) with the proper indentation length.
     - Verify the variables are accessible by pods.  
 
         ![k8s-secret](./images/k8s-secret.png)
@@ -256,7 +256,7 @@
 
 ### 3.4. Resource Restrictions
 
-- Create `k8s/minikube/limitrange.yaml` with request (min) and limit (max) cpu and memory usage for all containers.
+- Create [`k8s/minikube/limitrange.yaml`](../k8s/minikube/limitrange.yaml) with request (min) and limit (max) cpu and memory usage for all containers.
 
 - Apply configuration: `kubectl apply -f limitrange.yaml`
 
@@ -275,7 +275,7 @@
   ...
   ```
 
-- The same is done using the helm chart (in `deployment.yaml`, resources map).
+- The same is done using the helm chart (in `deployment.yaml` resources map).
 
 ### 3.5. Application Configuration
 
@@ -287,9 +287,9 @@
   echo '{ "key": "value" }' > files/config.json
   ```
 
-- Create `templates/configmap.yaml` ConfigMap resource with the data from the JSON file.
+- Create [templates/configmap.yaml](../k8s/helm/app-deployment/templates/configmap.yaml) ConfigMap resource with the data from the JSON file.
 
-- Edit `templates/deployment.yaml` to mount `files/` directory as a volume in `/app/config` in the app container.
+- Edit [templates/deployment.yaml](../k8s/helm/app-deployment/templates/deployment.yaml) to mount `files/` directory as a volume in `/app/config` in the app container.
 
 - Install the chart and verify the file is available in the container.
 
@@ -302,7 +302,7 @@
   - `db/visits.json` storing the number of times `/` was accessed by user.
   - `/visits` endpoint returning the content of `visits.json`
 
-- Create `statefulset.yaml` with a headless service, StatefulSet ([example](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#components)), and a PVC template mounted at `/app/db`  
+- Create [statefulset.yaml](../k8s/helm/app-deployment/templates/statefulset.yaml) with a headless service, StatefulSet ([example](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#components)), and a PVC template mounted at `/app/db`  
 
 - Deploy or upgrade the chart:
 
@@ -360,7 +360,7 @@
 
 - Init containers run before the main containers in the pod, they can be used to do some initialization tasks.
 
-- Create a pod (`k8s/minikube/init-container.yaml`) that runs an init container to download a file, save it to a volume, and access it from the main container.
+- Create a pod ([`k8s/minikube/init-container.yaml`](../k8s/minikube/init-container.yaml)) that runs an init container to download a file, save it to a volume, and access it from the main container.
 
   ![init-container](./images/init-container.png)
 

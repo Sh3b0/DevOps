@@ -26,7 +26,7 @@
 ### 2.1. Python App
 
 - Add `pytest` to project dependencies and freeze the environment.
-- Create `tests` module with a `test_<unit>.py` file for each test unit.
+- Create [tests](../app_python/tests) module with a `test_<unit>.py` file for each test unit.
 - Run `python -m pytest` to verify tests are working.
 - Add testing instructions to README.
 
@@ -35,7 +35,7 @@
 - Install `jest` as a dev dependency with `npm install --save-dev`
 - Install `@types/jest` to configure IDE support for jest.
 - Install `ts-jest` to use TypeScript with jest.
-- Write test suites and run `jest` to verify that tests are working.
+- Write [test suites](../app_nodejs/tests) and run `jest` to verify that tests are working.
 - Add script to `package.json` to quickly run tests for CI/CD.  
 - Add testing instructions to README.
 
